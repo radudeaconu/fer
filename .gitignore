@@ -1,0 +1,32 @@
+# Data and model artifacts (never commit)
+data/
+checkpoints/
+runs/
+third_party/
+*.pth
+*.tar
+*.zip
+*.pkl
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.env
+*.egg-info/
+.pytest_cache/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# IDE / tooling
+.vscode/
+.idea/
+*.swp
+.claude/
+
+# OS
+.DS_Store
+Thumbs.db
