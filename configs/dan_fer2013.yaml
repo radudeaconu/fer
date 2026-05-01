@@ -16,13 +16,13 @@ data:
 
 train:
   batch_size: 64
-  epochs: 30
+  epochs: 15        # 24h-mode: ~25 min on T4 with ImageNet init; bump to 30 for a slower-but-better run
   optimizer: adamw
   lr: 3.0e-4
   weight_decay: 1.0e-4
   label_smoothing: 0.1
   scheduler: cosine
-  warmup_epochs: 2
+  warmup_epochs: 1
   amp: true
   grad_clip: 1.0
   seed: 42

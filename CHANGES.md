@@ -5,6 +5,9 @@ See `CLAUDE.md` Rule 1 for the contract.
 
 ## 2026-05-01
 
+- `notebooks/01_colab_setup.ipynb`: Loosened the FER-2013 ingest cell to accept either `fer2013.zip` or a bare `fer2013.csv` on Drive — saves the user a zip step. RAF-DB stays opt-in via `rafdb.zip` (EULA-gated, not blocking 24h plan).
+- `notebooks/02_train_dan.ipynb`: Pivoted to 24h-mode — header now documents the FER-2013 default + RAF-DB full-mode, training command points at `configs/dan_fer2013.yaml`, eval points at `runs/dan_fer2013/best.pth`. The DAN-checkpoint-copy cell is replaced with a no-op print since 24h-mode trains from ImageNet init (no MS-Celeb-1M file required).
+- `configs/dan_fer2013.yaml`: Halved epochs (30 → 15) and warmup (2 → 1). With ~100s/epoch on T4 + ImageNet-init backbone, this drops training from ~50 min to ~25 min, leaving headroom for eval + report writing within the 24h budget. Bumping back to 30 is a one-line change if WAR plateaus.
 - `src/models.py` (`build_dan`): Fixed two bugs found by cloning `yaoing/DAN` locally and inspecting the code. (1) Import path was `networks.DAN` (case-sensitive); the file is `networks/dan.py` lowercase. (2) Calling `DAN(pretrained=True)` hard-codes a load of `./models/resnet18_msceleb.pth` (MS-Celeb-1M backbone), which we don't have — guaranteed crash. Fix: build DAN with `pretrained=False`, then post-hoc copy torchvision's ImageNet ResNet-18 weights into `model.features` (which is `Sequential(*list(resnet.children())[:-2])`). End-to-end smoke test passes: build_dan() → 19.7M params, forward `[2,3,224,224]` → `(logits[2,7], features[2,512,7,7], heads[2,4,512])`, train_one_epoch + evaluate run without errors. ImageNet init is ~1-2 pt below MS-Celeb-1M for FER fine-tuning, acceptable cost vs. hunting for the MS-Celeb-1M file.
 
 ## 2026-04-30
