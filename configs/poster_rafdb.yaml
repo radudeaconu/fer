@@ -1,0 +1,36 @@
+# POSTER++ stretch on RAF-DB. report.md:905. SOTA target: 92.21% WAR.
+# Run: python -m src.train --config configs/poster_rafdb.yaml
+#
+# CRITICAL: never train POSTER++ from random init — always start from the
+# released RAF-DB checkpoint (or at minimum the IR-50 + MobileFaceNet
+# face-recognition-pretrained backbones). report.md:933-934.
+
+experiment_name: poster_rafdb
+
+model:
+  name: poster_pp
+  num_classes: 7
+  pretrained_ckpt: checkpoints/poster_v2_rafdb.pth  # released RAF-DB ckpt from Talented-Q/POSTER_V2
+
+data:
+  dataset: rafdb
+  root: data/rafdb
+  image_size: 224
+  num_workers: 2
+  use_class_weighted_sampler: false
+
+train:
+  batch_size: 32       # POSTER++ is 43.7M params; 32 fits a T4 with AMP
+  epochs: 5            # short fine-tune from released checkpoint
+  optimizer: adamw
+  lr: 1.0e-5           # very small LR — released ckpt is already at SOTA, avoid catastrophic forgetting
+  weight_decay: 1.0e-4
+  label_smoothing: 0.1
+  scheduler: cosine
+  warmup_epochs: 0
+  amp: true
+  grad_clip: 1.0
+  seed: 42
+
+eval:
+  batch_size: 64
