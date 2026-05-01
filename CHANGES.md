@@ -3,6 +3,10 @@
 Rolling log of every code modification. Format: `- <file>: <what> — <why>` under a daily heading.
 See `CLAUDE.md` Rule 1 for the contract.
 
+## 2026-05-01
+
+- `src/models.py` (`build_dan`): Fixed two bugs found by cloning `yaoing/DAN` locally and inspecting the code. (1) Import path was `networks.DAN` (case-sensitive); the file is `networks/dan.py` lowercase. (2) Calling `DAN(pretrained=True)` hard-codes a load of `./models/resnet18_msceleb.pth` (MS-Celeb-1M backbone), which we don't have — guaranteed crash. Fix: build DAN with `pretrained=False`, then post-hoc copy torchvision's ImageNet ResNet-18 weights into `model.features` (which is `Sequential(*list(resnet.children())[:-2])`). End-to-end smoke test passes: build_dan() → 19.7M params, forward `[2,3,224,224]` → `(logits[2,7], features[2,512,7,7], heads[2,4,512])`, train_one_epoch + evaluate run without errors. ImageNet init is ~1-2 pt below MS-Celeb-1M for FER fine-tuning, acceptable cost vs. hunting for the MS-Celeb-1M file.
+
 ## 2026-04-30
 
 - `.gitignore`: Initial ignore rules — exclude data/, checkpoints/, runs/, third_party/, Python bytecode, notebook checkpoints, and `.claude/` (local Claude tooling state). Keeps the repo focused on source code, not artifacts or per-user tooling.

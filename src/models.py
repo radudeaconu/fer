@@ -45,29 +45,41 @@ def build_dan(num_classes: int = NUM_CLASSES, pretrained_ckpt: str | Path | None
 
     Args:
         num_classes: target classes for the final FC. RAF-DB and FER-2013 both use 7.
-        pretrained_ckpt: path to the released RAF-DB checkpoint (DAN.pth). If None,
-            backbone weights are still ImageNet-init via the reference repo's loader.
+        pretrained_ckpt: path to a trained DAN checkpoint (e.g., released RAF-DB ckpt).
+            If None, backbone is initialized with torchvision ImageNet ResNet-18 weights.
 
-    The reference impl's class is at `networks.DAN` in yaoing/DAN.
+    Note: DAN's __init__ with pretrained=True hard-codes a load of
+    `./models/resnet18_msceleb.pth` (MS-Celeb-1M backbone). We don't ship that file;
+    instead we construct DAN with pretrained=False and post-hoc load torchvision's
+    ImageNet ResNet-18 into `model.features`. ImageNet init is empirically only a
+    few points worse than MS-Celeb-1M init for FER fine-tuning.
     """
     _ensure_third_party_on_path("DAN")
-    from networks.DAN import DAN  # type: ignore
+    from networks.dan import DAN  # type: ignore
 
-    model = DAN(num_class=num_classes, num_head=4, pretrained=True)
+    model = DAN(num_class=num_classes, num_head=4, pretrained=False)
 
-    if pretrained_ckpt is not None:
-        ckpt_path = Path(pretrained_ckpt)
-        if not ckpt_path.exists():
-            raise FileNotFoundError(f"DAN checkpoint not found: {ckpt_path}")
-        state = torch.load(ckpt_path, map_location="cpu", weights_only=False)
-        # Reference repo saves under 'model_state_dict' for the released ckpt.
-        sd = state.get("model_state_dict", state)
-        missing, unexpected = model.load_state_dict(sd, strict=False)
-        if unexpected:
-            print(f"[build_dan] unexpected keys: {unexpected[:3]}{'...' if len(unexpected) > 3 else ''}")
-        if missing:
-            print(f"[build_dan] missing keys: {missing[:3]}{'...' if len(missing) > 3 else ''}")
+    if pretrained_ckpt is None:
+        from torchvision import models as tv_models
+        from torchvision.models import ResNet18_Weights
+        imagenet_rn18 = tv_models.resnet18(weights=ResNet18_Weights.IMAGENET1K_V1)
+        # DAN trims to children()[:-2] (drops avgpool + fc); mirror that for the load.
+        imagenet_features = nn.Sequential(*list(imagenet_rn18.children())[:-2])
+        missing, unexpected = model.features.load_state_dict(imagenet_features.state_dict(), strict=True)
+        assert not missing and not unexpected, (missing, unexpected)
+        return model
 
+    ckpt_path = Path(pretrained_ckpt)
+    if not ckpt_path.exists():
+        raise FileNotFoundError(f"DAN checkpoint not found: {ckpt_path}")
+    state = torch.load(ckpt_path, map_location="cpu", weights_only=False)
+    sd = state.get("model_state_dict", state)
+    sd = {k.removeprefix("module."): v for k, v in sd.items()}
+    missing, unexpected = model.load_state_dict(sd, strict=False)
+    if unexpected:
+        print(f"[build_dan] unexpected keys: {unexpected[:3]}{'...' if len(unexpected) > 3 else ''}")
+    if missing:
+        print(f"[build_dan] missing keys: {missing[:3]}{'...' if len(missing) > 3 else ''}")
     return model
 
 
