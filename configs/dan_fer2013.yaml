@@ -1,0 +1,31 @@
+# DAN baseline on FER-2013 (fallback / Week-1 unblocked path).
+
+experiment_name: dan_fer2013
+
+model:
+  name: dan
+  num_classes: 7
+  pretrained_ckpt: null  # train from MS-Celeb-1M init (DAN's default)
+
+data:
+  dataset: fer2013
+  root: data/fer2013
+  image_size: 224
+  num_workers: 2
+  use_class_weighted_sampler: true  # severe imbalance per report.md:1928
+
+train:
+  batch_size: 64
+  epochs: 30
+  optimizer: adamw
+  lr: 3.0e-4
+  weight_decay: 1.0e-4
+  label_smoothing: 0.1
+  scheduler: cosine
+  warmup_epochs: 2
+  amp: true
+  grad_clip: 1.0
+  seed: 42
+
+eval:
+  batch_size: 128

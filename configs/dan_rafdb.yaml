@@ -1,0 +1,32 @@
+# DAN baseline on RAF-DB. report.md:252.
+# Run: python -m src.train --config configs/dan_rafdb.yaml
+
+experiment_name: dan_rafdb
+
+model:
+  name: dan
+  num_classes: 7
+  pretrained_ckpt: checkpoints/dan_rafdb.pth  # released checkpoint from yaoing/DAN
+
+data:
+  dataset: rafdb
+  root: data/rafdb
+  image_size: 224
+  num_workers: 2
+  use_class_weighted_sampler: false  # RAF-DB train uses uniform sampling; report UAR alongside WAR
+
+train:
+  batch_size: 64
+  epochs: 10
+  optimizer: adamw
+  lr: 1.0e-4
+  weight_decay: 1.0e-4
+  label_smoothing: 0.1
+  scheduler: cosine
+  warmup_epochs: 1
+  amp: true            # mixed precision; T4 supports fp16
+  grad_clip: 1.0
+  seed: 42
+
+eval:
+  batch_size: 128
