@@ -1,0 +1,27 @@
+{
+  "name": "EMOTIC (Emotion Recognition in Context)",
+  "type": "dataset",
+  "subcategory": "context-emotion (static-image, person-in-scene)",
+  "release_year": 2017,
+  "authors_or_creators": "Ronak Kosti, Jose M. Alvarez, Adria Recasens, Agata Lapedriza — Universitat Oberta de Catalunya (UOC) and MIT CSAIL",
+  "paper_link": "https://arxiv.org/abs/2003.13401",
+  "publication_venue": "CVPR 2017 (initial); IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI), 2019 (extended)",
+  "num_images": "23,571 images containing 34,320 annotated person instances",
+  "num_subjects": "Not identity-controlled; ~34,320 annotated person bounding boxes (subjects are not unique identities — images sourced from web/COCO/Ade20K)",
+  "num_classes": 26,
+  "label_taxonomy": "mixed: 26 fine-grained discrete emotion categories (multi-label) + 3-D continuous Valence-Arousal-Dominance (VAD)",
+  "in_the_wild_or_lab": "in-the-wild",
+  "license": "research-only (custom license; non-commercial academic use)",
+  "download_url": "http://sunai.uoc.edu/emotic/ (also mirrored via http://emotic.csail.mit.edu/)",
+  "known_issues": "Multi-label discrete annotations are subjective and inter-annotator agreement is moderate (each image annotated by ~3 annotators via AMT). Class imbalance is severe — categories such as 'Engagement', 'Happiness', 'Excitement' dominate, while 'Suffering', 'Embarrassment', 'Aversion' are underrepresented. Demographic bias inherited from MS-COCO and Ade20K (Western-centric scenes, skewed age/ethnicity distribution). Bounding boxes around persons can be loose; small/occluded faces are common, making face-only methods underperform. Continuous VAD labels are scaled 1-10 with annotator variance.",
+  "modality": "image (RGB, person bounding box + full scene context)",
+  "annotation_method": "crowdsourced (Amazon Mechanical Turk; multiple annotators per instance, aggregated)",
+  "resolution_or_fps": "Variable resolution (inherited from MS-COCO, Ade20K, and Google-collected images); typical sizes range from ~300x300 up to HD",
+  "train_val_test_split": "Official split: 70% train / 10% validation / 20% test, divided at the image level — approximately 17,077 train, 2,088 val, 4,389 test images (23,266 / 3,315 / 7,203 person instances depending on version)",
+  "demographic_metadata": "No explicit demographic metadata; person instances span varied ages, genders, and ethnicities but distribution mirrors MS-COCO/Ade20K (Western bias, adult-skewed). No identity or fine-grained demographic labels are released.",
+  "top_sota_model": "Strong baselines report mAP ~27-32% on the 26 discrete categories and VAD mean error ~0.9-1.0 (out of 10). Recent methods leveraging context-aware transformers and CLIP-based models (e.g., EmotiCon, CAER-Net, GLAMOR-Net, and CLIP-based context models) push mAP above 35% and reduce VAD error further; reported best mAP ~36-38% as of 2023-2024.",
+  "uncertain": [
+    "train_val_test_split",
+    "top_sota_model"
+  ]
+}

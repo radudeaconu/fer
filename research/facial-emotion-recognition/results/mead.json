@@ -1,0 +1,30 @@
+{
+  "name": "MEAD (Multi-view Emotional Audio-visual Dataset)",
+  "type": "dataset",
+  "subcategory": "audio-visual",
+  "release_year": 2020,
+  "authors_or_creators": "Kaisiyuan Wang, Qianyi Wu, Linsen Song, Zhuoqian Yang, Wayne Wu, Chen Qian, Ran He, Yu Qiao, Chen Change Loy. Primary affiliations: SenseTime Research, CUHK, Chinese Academy of Sciences (CASIA), NTU.",
+  "paper_link": "https://wywu.github.io/projects/MEAD/support/MEAD.pdf",
+  "publication_venue": "ECCV 2020",
+  "num_images": "Approximately 40 hours of talking-face video; tens of thousands of clips (exact clip count [uncertain]).",
+  "num_subjects": 60,
+  "num_classes": 8,
+  "label_taxonomy": "basic-8 (neutral, happy, sad, angry, surprised, disgusted, fearful, contempt) with 3 intensity levels per emotion.",
+  "in_the_wild_or_lab": "lab-controlled",
+  "license": "research-only (academic use; agreement required) [uncertain]",
+  "download_url": "https://wywu.github.io/projects/MEAD/MEAD.html",
+  "known_issues": "Lab-controlled studio recordings limit ecological validity (clean background, controlled lighting, scripted utterances) so models trained on MEAD may not transfer well to in-the-wild settings. Acted (posed) emotions rather than spontaneous expressions. Demographic distribution skews toward East Asian / Chinese actors with limited ethnic diversity, and gender balance / age coverage details are not extensively documented. Some viewpoints have lower utility (extreme angles) and the contempt class is rare in many downstream FER taxonomies, complicating cross-dataset comparison. Access requires signing a release form.",
+  "modality": "audio-visual",
+  "annotation_method": "expert (scripted recording protocol; emotion label and intensity assigned by experimental design rather than post-hoc annotation)",
+  "resolution_or_fps": "1920x1080 video at 30 fps with synchronized 48 kHz audio [uncertain on exact fps/audio rate]",
+  "train_val_test_split": "No single canonical official split is universally adopted; most works use subject-independent splits (e.g., hold-out subset of the 60 actors) defined per paper. [uncertain]",
+  "demographic_metadata": "60 actors balanced across genders; predominantly East Asian (Chinese) ethnicity with some other ethnicities; adult age range. Cultural diversity is limited compared to in-the-wild datasets.",
+  "top_sota_model": "MEAD is primarily used as a generation/benchmark dataset for talking-face synthesis (e.g., EAMM, EAT, EmoTalk, PD-FGC) rather than for classification leaderboards; no widely tracked single SOTA classification number. [uncertain]",
+  "uncertain": [
+    "num_images (exact clip count)",
+    "license (exact terms)",
+    "resolution_or_fps (exact fps and audio sample rate)",
+    "train_val_test_split (no universal protocol)",
+    "top_sota_model (no canonical FER classification leaderboard)"
+  ]
+}

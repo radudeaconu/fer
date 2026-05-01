@@ -1,0 +1,29 @@
+{
+  "name": "Aff-Wild2",
+  "type": "dataset",
+  "subcategory": "dynamic-video",
+  "release_year": 2019,
+  "authors_or_creators": "Dimitrios Kollias and Stefanos Zafeiriou, Imperial College London",
+  "paper_link": "https://arxiv.org/abs/1811.07770",
+  "publication_venue": "BMVC 2019 / IJCV 2019 (Expression, Affect, Action Unit Recognition: Aff-Wild2, Multi-Task Learning and ArcFace)",
+  "num_images": "~564 in-the-wild YouTube videos comprising approximately 2.8 million frames",
+  "num_subjects": 458,
+  "num_classes": "8 (expression task: basic-6 + neutral + other); also 12 action units; and continuous valence-arousal",
+  "label_taxonomy": "mixed: (1) valence-arousal continuous in [-1,1], (2) 8 expression categories (6 basic emotions + neutral + other), (3) 12 facial action units (AU1, AU2, AU4, AU6, AU7, AU10, AU12, AU15, AU23, AU24, AU25, AU26)",
+  "in_the_wild_or_lab": "in-the-wild",
+  "license": "research-only; access via End User License Agreement (EULA) request to authors at Imperial College London",
+  "download_url": "https://ibug.doc.ic.ac.uk/resources/aff-wild2/",
+  "known_issues": "Significant class imbalance across emotion categories (neutral and happy dominate; disgust, fear, anger are minority classes). Demographic imbalance with limited age, gender, and ethnicity diversity (sourced from YouTube). Annotation noise inherent to in-the-wild video frames; some frames have ambiguous or transitional expressions. Many frames have only partial labels (not all three tasks annotated for every frame) which complicates multi-task learning. Privacy and consent concerns are mitigated only by EULA-gated access. Track-level subject identity labels were refined across ABAW iterations, so older publications may report slightly different subject counts. Distribution bound by YouTube terms; videos can become unavailable over time.",
+  "modality": "video",
+  "annotation_method": "expert (multiple trained annotators per frame using a custom annotation tool; valence-arousal annotated continuously by 4 experts, expressions and AUs by 3+ experts with majority/agreement protocol)",
+  "resolution_or_fps": "Variable resolution (commonly up to 1080p, with many 720p and 480p clips); typical frame rate 30 fps",
+  "train_val_test_split": "Subject-independent splits provided per ABAW challenge track (train / validation / test). Approximate split for the expression track: ~250 train videos, ~70 validation videos, remainder as held-out test; valence-arousal and AU tracks have analogous subject-disjoint splits. Test labels are not publicly released and evaluation is done via the ABAW server.",
+  "demographic_metadata": "Diverse YouTube sources covering varied ages, genders, and ethnicities, but not demographically balanced; skewed toward adult speakers and Western media content. No formal demographic statistics released by the authors.",
+  "top_sota_model": "Top entries on the ABAW challenges (CVPR 2023/2024/2025) typically use multi-task transformer-based models with audio-visual fusion (e.g., Netease Fuxi AI Lab, SituTech, HSE-NN). Reported leaderboard results: VA CCC ~0.65-0.70 (mean of valence and arousal CCC), expression macro-F1 ~0.40-0.45, AU macro-F1 ~0.55-0.58. ME-GraphAU and MAE-Face based pipelines are commonly competitive.",
+  "uncertain": [
+    "publication_venue",
+    "num_images",
+    "train_val_test_split",
+    "top_sota_model"
+  ]
+}

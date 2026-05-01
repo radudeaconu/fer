@@ -1,0 +1,28 @@
+{
+  "name": "BP4D / BP4D+ (Binghamton-Pittsburgh 4D Spontaneous Expression Database)",
+  "type": "dataset",
+  "subcategory": "au",
+  "release_year": "BP4D: 2013-2014; BP4D+: 2016",
+  "authors_or_creators": "Xing Zhang, Lijun Yin, Jeffrey F. Cohn, Shaun Canavan, Michael Reale, Andy Horowitz, Peng Liu (Binghamton University and University of Pittsburgh)",
+  "paper_link": "BP4D: https://doi.org/10.1016/j.imavis.2014.06.002 ; BP4D+: https://openaccess.thecvf.com/content_cvpr_2016_workshops/w27/papers/Zhang_Multimodal_Spontaneous_Emotion_CVPR_2016_paper.pdf",
+  "publication_venue": "BP4D: Image and Vision Computing (IVC) 2014 (also FG 2013); BP4D+: CVPR Workshops 2016 (Multimodal Spontaneous Emotion Corpus, MMSE)",
+  "num_images": "BP4D: ~368,000 frames across 328 sequences (41 subjects x 8 tasks); approximately 140,000 frames have frame-level FACS AU annotations. BP4D+: ~1,400,000 frames across 1,400 sequences (140 subjects x 10 tasks).",
+  "num_subjects": "BP4D: 41 (23 female, 18 male); BP4D+: 140 (82 female, 58 male)",
+  "num_classes": "27 AUs annotated in BP4D (most studies use a 12-AU subset: AU1, 2, 4, 6, 7, 10, 12, 14, 15, 17, 23, 24); BP4D also includes 8 emotion task labels",
+  "label_taxonomy": "action-units (FACS AU occurrence and intensity for selected AUs); also task-elicited emotion categories (happy, sad, surprise, embarrassment, fear, physical pain, anger, disgust)",
+  "in_the_wild_or_lab": "lab-controlled",
+  "license": "research-only (EULA required; distributed by Binghamton University via signed end-user license agreement, free for academic research)",
+  "download_url": "http://www.cs.binghamton.edu/~lijun/Research/3DFE/3DFE_Analysis.html (BP4D and BP4D+ request forms)",
+  "known_issues": "Lab-controlled with limited demographic diversity (predominantly young adult subjects, mostly North American university population); BP4D ethnicity skews toward Euro-American/Asian. AU annotations are subset (only ~12 AUs commonly used) and frame-level coding is partial (~140K of 368K frames in BP4D). Class imbalance across AUs (some AUs very rare, e.g., AU2, AU23, AU24) leading to inflated F1 scores when using easy AUs only. Subject-independent splits are not officially fixed, so cross-paper comparisons can be inconsistent (typical practice: 3-fold subject-independent CV). Access requires institutional EULA, limiting reproducibility.",
+  "modality": "multimodal (3D dynamic mesh + 2D RGB video + thermal video for BP4D; BP4D+ adds physiological signals: heart rate, blood pressure, skin conductance, respiration)",
+  "annotation_method": "expert (FACS-certified coders performed manual frame-level AU coding)",
+  "resolution_or_fps": "2D video: 1040x1392 px at 25 fps; 3D model sequences at 25 fps (~30K-50K vertices per mesh); thermal: 640x480",
+  "train_val_test_split": "No official train/val/test split. Standard protocol is subject-independent 3-fold cross-validation on the 12-AU subset; some works use 5-fold CV. For BP4D+: often subject-independent 3-fold CV.",
+  "demographic_metadata": "BP4D: 41 subjects, 23 female / 18 male, ages 18-29; ethnicity: 11 Asian, 6 African-American, 4 Hispanic, 20 Euro-American. BP4D+: 140 subjects, 82 female / 58 male, ages 18-66; ethnicity diversified to include Black, White, Asian, Hispanic/Latino. Both skew toward young adult North American university populations.",
+  "top_sota_model": "ME-GraphAU (Luo et al., IJCAI 2022) reported average F1 ~64.1 on BP4D 12-AU. More recent: KS (Knowledge-Spread) and KDSRL approaches; AU-LLaVA and FAU-LLM-style methods report ~65-66 average F1. JAA-Net, LP-Net, SRERL, and HMP-PS are common baselines. BP4D average F1 SOTA hovers around 64-66 percent.",
+  "uncertain": [
+    "exact_total_frame_count_BP4D_plus",
+    "top_sota_model_current_2026_value",
+    "demographic_breakdown_BP4D_plus_exact_counts"
+  ]
+}

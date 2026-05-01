@@ -1,0 +1,31 @@
+{
+  "name": "C-EXPR-DB (Compound Expression Database)",
+  "type": "dataset",
+  "subcategory": "dynamic-video",
+  "release_year": 2023,
+  "authors_or_creators": "Dimitrios Kollias et al. — Queen Mary University of London / Imperial College London (iBUG group)",
+  "paper_link": "https://arxiv.org/abs/2303.01498 (ABAW: Compound Expression Recognition); see also Kollias 2024 ABAW6/CVPRW companion paper",
+  "publication_venue": "CVPR Workshops (ABAW6 Challenge, 2024); related work in IJCV 2023",
+  "num_images": "~400 videos / ~200,000 annotated frames",
+  "num_subjects": "[uncertain] — not officially specified; in-the-wild YouTube-sourced subjects",
+  "num_classes": 7,
+  "label_taxonomy": "compound (7 compound expressions: Fearfully Surprised, Happily Surprised, Sadly Surprised, Disgustedly Surprised, Angrily Surprised, Sadly Fearful, Sadly Angry)",
+  "in_the_wild_or_lab": "in-the-wild (YouTube / web video sources)",
+  "license": "research-only (EULA / End User License Agreement; non-commercial academic use via iBUG resources page)",
+  "download_url": "https://ibug.doc.ic.ac.uk/resources/abaw/ (request form / EULA required); access also granted to ABAW6 Challenge participants",
+  "known_issues": "Compound expression labels are inherently ambiguous and harder to annotate consistently than basic emotions; inter-annotator agreement on compound categories is lower than on basic-7. Class distribution is imbalanced — 'Happily Surprised' and 'Fearfully Surprised' are far more common than rarer combinations like 'Disgustedly Surprised' or 'Sadly Angry'. As an in-the-wild YouTube collection, demographic balance is not formally controlled and skews toward online-content creators. The benchmark was released specifically for the ABAW6 zero-shot / few-shot Compound Expression Recognition track, so test labels are withheld from public release. Limited public baselines and evaluation history relative to mature benchmarks. Some videos contain multiple faces, head pose variation, and occlusions.",
+  "modality": "video (audio-visual track available; primarily evaluated as visual-only)",
+  "annotation_method": "expert (trained annotators following the Du, Tao & Martinez compound expression taxonomy); per-frame compound expression labels",
+  "resolution_or_fps": "Variable (web video); typically 30 fps, mixed resolutions (480p-1080p)",
+  "train_val_test_split": "ABAW6 (2024) Compound Expression Recognition track used C-EXPR-DB as a zero-shot / cross-corpus test benchmark — participants train on Aff-Wild2 (basic expressions) and are evaluated on C-EXPR-DB compound labels. No standard internal train/val/test split was released publicly; full 400 videos / 200K frames serve as the evaluation set in the challenge protocol.",
+  "demographic_metadata": "[uncertain] — no published demographic statistics; in-the-wild YouTube content implies broad but uncontrolled diversity in age, gender, and ethnicity, with likely Western/English-language skew",
+  "top_sota_model": "ABAW6 Compound Expression Recognition winners (CVPR 2024 workshop) reported macro-F1 in the ~0.30-0.40 range on C-EXPR-DB under the zero-shot protocol; top entries combined ViT/IResNet visual encoders with multi-task ABAW pretraining and compound-expression heuristics (e.g., team Netease Fuxi, team SituTech). Exact leaderboard values vary by submission round.",
+  "uncertain": [
+    "release_year",
+    "num_subjects",
+    "resolution_or_fps",
+    "demographic_metadata",
+    "top_sota_model",
+    "paper_link"
+  ]
+}

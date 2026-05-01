@@ -1,0 +1,29 @@
+{
+  "name": "AffectNet",
+  "type": "dataset",
+  "subcategory": "static-image",
+  "release_year": 2017,
+  "authors_or_creators": "Ali Mollahosseini, Behzad Hasani, Mohammad H. Mahoor. University of Denver (Department of Electrical and Computer Engineering).",
+  "paper_link": "https://arxiv.org/abs/1708.03985",
+  "publication_venue": "IEEE Transactions on Affective Computing (TAFFC), 2017/2019",
+  "num_images": "~1,000,000 images crawled (≈1M total); ~440,000 (often cited as ~420K-450K) manually annotated for the 8 categorical emotions, valence, and arousal",
+  "num_subjects": "unknown / not explicitly enumerated (no subject identity labels released; faces sourced from open-web image search)",
+  "num_classes": 8,
+  "label_taxonomy": "mixed: basic-8 categorical (Neutral, Happy, Sad, Surprise, Fear, Disgust, Anger, Contempt) plus continuous valence-arousal (each in [-1, 1]); additional labels for None/Uncertain/Non-Face are provided to flag unusable samples",
+  "in_the_wild_or_lab": "in-the-wild",
+  "license": "Research-only, requires signing an End User License Agreement (EULA) with the University of Denver; redistribution is prohibited. Commercial use is not permitted.",
+  "download_url": "http://mohammadmahoor.com/affectnet/ (request form / EULA must be submitted to the authors)",
+  "known_issues": "AffectNet has several well-documented and critical issues. (1) Severe class imbalance: 'Happy' dominates (~134,000 annotated training images), while 'Disgust' (~3,800) and 'Contempt' (~3,750) are roughly 30-40x smaller; this skew strongly biases models trained without resampling/weighting and inflates Overall Accuracy (WAR) relative to Mean-class accuracy (UAR). The standard validation set is therefore deliberately balanced (500 images per class for the 8-class set, 4,000 total; 3,500 for the 7-class subset) to enable fair UAR reporting. (2) Western/internet bias: images were collected by querying three search engines (Google, Bing, Yahoo) in English, Spanish, Portuguese, German, Arabic and Farsi using 1,250 emotion-related keywords, but the resulting distribution skews toward Western, adult, lighter-skinned subjects; demographic balance across age, gender, and ethnicity is not enforced or documented. (3) Annotator subjectivity: only one of 12 trained annotators labeled each image, so inter-annotator agreement is limited; the authors report ~60% agreement on a doubly-annotated subset and ~65% human accuracy on categorical labels, indicating substantial label noise especially among Fear/Surprise and Anger/Disgust pairs. (4) Many crawled images are non-faces, cartoons, or duplicates and are flagged 'None/Uncertain/Non-Face'; cleaning is required. (5) The official test set has never been publicly released — researchers report results on the validation set, which can lead to inadvertent test-set tuning. (6) Ethical/consent concerns: images were scraped from the web without subject consent, raising GDPR and ethical questions; access has tightened over time and the EULA explicitly forbids redistribution. (7) Reported demographic audits (e.g., FairFace and follow-up fairness papers) show under-representation of Black, East Asian, and elderly subjects, leading to disparate accuracy across demographic groups.",
+  "modality": "image",
+  "annotation_method": "expert (12 trained human annotators provided categorical, valence, and arousal labels; each image annotated by a single annotator with quality-control double-annotation on a subset)",
+  "resolution_or_fps": "Variable; faces cropped/aligned and commonly resized to 224x224 or 256x256 by users. Original crawled images are heterogeneous in resolution.",
+  "train_val_test_split": "Training set: ~287,651 images (8-class manual annotations); often cited overall ~414K-440K manually annotated. Validation set: 4,000 images for 8-class (500 per class, balanced) or 3,500 for 7-class. Official test set was withheld and never publicly released. Splits are random, not subject-independent (no subject IDs).",
+  "demographic_metadata": "No formal age/gender/ethnicity labels distributed with the dataset. Empirical fairness audits report a Western-centric, adult-skewed distribution with under-representation of Black, East Asian, and elderly subjects; gender distribution is roughly balanced but not officially certified.",
+  "top_sota_model": "Reported state-of-the-art on AffectNet validation: 8-class around 65-67% (e.g., POSTER++ / POSTER V2 ~63-64%, EmoNeXt ~66%, MAE-Face / FaceMAE-based methods ~66-67%); 7-class around 67-69% (e.g., DAN, POSTER++, EmoNeXt). MLLM/foundation-model approaches (e.g., EmotionLLaMA, Qwen-VL fine-tunes) push higher on selected subsets. [uncertain]",
+  "uncertain": [
+    "num_images",
+    "num_subjects",
+    "resolution_or_fps",
+    "top_sota_model"
+  ]
+}

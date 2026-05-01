@@ -1,0 +1,29 @@
+{
+  "name": "DISFA / DISFA+ (Denver Intensity of Spontaneous Facial Action Database)",
+  "type": "dataset",
+  "subcategory": "au",
+  "release_year": "DISFA: 2013; DISFA+: 2016",
+  "authors_or_creators": "S. Mohammad Mavadati, Mohammad H. Mahoor, Kevin Bartlett, Philip Trinh, Jeffrey F. Cohn (University of Denver, University of Pittsburgh, Carnegie Mellon University)",
+  "paper_link": "DISFA: https://doi.org/10.1109/T-AFFC.2013.4 ; DISFA+: https://ieeexplore.ieee.org/document/7477605 (FG 2016 Workshop)",
+  "publication_venue": "DISFA: IEEE Transactions on Affective Computing (TAFFC) 2013; DISFA+: IEEE FG 2016 / FG Workshops",
+  "num_images": "DISFA: ~130,000 frames (27 videos, ~4,845 frames per video at 4 min 48 s, 20 fps). DISFA+: additional ~57,000 frames of posed expressions over 9 subjects.",
+  "num_subjects": "DISFA: 27 (12 female, 15 male); DISFA+: 9 subjects (overlapping subset re-recorded with posed expressions)",
+  "num_classes": "12 AUs with intensity labels: AU1, AU2, AU4, AU5, AU6, AU9, AU12, AU15, AU17, AU20, AU25, AU26 (each on 0-5 ordinal intensity scale)",
+  "label_taxonomy": "action-units (AU occurrence and 6-level intensity 0-5, FACS-coded)",
+  "in_the_wild_or_lab": "lab-controlled",
+  "license": "research-only (EULA via University of Denver / Mohammad H. Mahoor lab; free for non-commercial academic research)",
+  "download_url": "http://mohammadmahoor.com/disfa/ (request form to Mahoor lab); DISFA+: http://mohammadmahoor.com/disfa-plus-request-form/",
+  "known_issues": "Small subject pool (only 27 subjects) limits generalization and makes subject-independent evaluation high-variance. Severe class imbalance: many AU intensity labels are dominated by 0 (neutral) and rare for higher intensities (3-5), inflating F1 if not stratified. Limited demographic diversity (mostly young adults of mixed ethnicity from Denver area). Stimulus is a single 4-min YouTube video clip per subject, so contextual diversity is low. Standard subject-independent 3-fold CV protocol is informal (no official split file), causing cross-paper inconsistency. DISFA+ has only 9 subjects and posed expressions, so it should not be used as primary intensity benchmark alone.",
+  "modality": "video (RGB stereo); single high-resolution camera commonly used",
+  "annotation_method": "expert (two FACS-certified coders performed frame-by-frame intensity coding; high inter-coder reliability reported, ICC > 0.8 for most AUs)",
+  "resolution_or_fps": "1024x768 px at 20 fps (some references cite 1024x768 or 640x480 depending on stream); ~4 min 48 s per subject",
+  "train_val_test_split": "No official split. Standard protocol: subject-independent 3-fold cross-validation across the 27 subjects, training on 18 and testing on 9 per fold. Reported metrics: F1-frame and ICC (intraclass correlation) for intensity estimation.",
+  "demographic_metadata": "DISFA: 27 adults (12 female, 15 male), ages ~18-50; ethnicity self-reported: ~14 Euro-American, 4 Asian, 4 Hispanic, 4 African-American, 1 other (approximate). Skews toward young adult North American university population.",
+  "top_sota_model": "ME-GraphAU (IJCAI 2022) reports average F1 ~63.1 on DISFA; more recent transformer/LLM-augmented methods (e.g., KS, AU-LLaVA, FAN-Trans, MDHR) report 64-67 average F1. For intensity estimation, ICC SOTA ~0.65-0.70 mean across 12 AUs (e.g., HMP-PS, CCNN-IT, BG-CNN).",
+  "uncertain": [
+    "DISFA_plus_total_frame_count_exact",
+    "DISFA_demographic_exact_breakdown",
+    "top_sota_model_current_2026_value",
+    "DISFA_video_resolution_canonical"
+  ]
+}

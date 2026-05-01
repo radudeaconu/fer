@@ -1,0 +1,30 @@
+{
+  "name": "EmoSet",
+  "type": "dataset",
+  "subcategory": "affective-image (visual emotion analysis, broader than face)",
+  "release_year": 2023,
+  "authors_or_creators": "Jingyuan Yang, Qirui Huang, Tingting Ding, Dani Lischinski, Daniel Cohen-Or, Hui Huang. Visual Computing Research Center (VCC), Shenzhen University; with collaborators from The Hebrew University of Jerusalem and Tel Aviv University.",
+  "paper_link": "https://arxiv.org/abs/2308.00890",
+  "publication_venue": "ICCV 2023 (IEEE/CVF International Conference on Computer Vision)",
+  "num_images": "3.3M images in total (EmoSet-3.3M); 118,102 images carefully labeled with rich attributes (EmoSet-118K). The paper describes ~1.2M weakly labeled subset variations across releases.",
+  "num_subjects": "N/A (web-collected affective images, not identity-centric; no subject identity annotation)",
+  "num_classes": 8,
+  "label_taxonomy": "basic-8 — Mikels' wheel of emotions: amusement, awe, contentment, excitement (positive); anger, disgust, fear, sadness (negative). Plus 6 additional attribute annotations: brightness, colorfulness, scene type, object class, facial expression, human action.",
+  "in_the_wild_or_lab": "in-the-wild (collected from social media platforms and stock-image search engines including Flickr, Instagram, Pinterest, Unsplash, Pixabay)",
+  "license": "research-only (academic / non-commercial use); images retain their original source licenses and are distributed under terms permitting research use. [uncertain]",
+  "download_url": "https://vcc.tech/EmoSet (project page); code and labels: https://github.com/JingyuanYY/EmoSet",
+  "known_issues": "Class imbalance across the 8 Mikels categories (e.g., 'contentment' and 'amusement' tend to be overrepresented vs. 'anger' or 'disgust'). Labels combine crowdsourced annotation with automatically inferred attributes — emotion labels can be subjective and culturally dependent (Mikels' taxonomy is Western-centric). Web-scraped sources introduce demographic and content biases (skew toward Western, English-speaking platforms). Some images contain multiple emotional cues, making single-label classification noisy. Copyright/redistribution concerns: while research use is intended, images sourced from third-party platforms may have evolving licensing terms. The 6 attribute annotations are partly automatic (pseudo-labeled by detectors), introducing label noise. No standardized identity / face protection beyond what original platforms provide.",
+  "modality": "image",
+  "annotation_method": "crowdsourced (emotion labels by human annotators on the 118K rich-labeled subset, with multi-annotator agreement filtering) + automatic-pseudo-labeled (attributes such as scene/object/facial-expression/human-action obtained via off-the-shelf detectors and classifiers)",
+  "resolution_or_fps": "Variable — web-sourced images of heterogeneous resolution; commonly resized to 224x224 or 256x256 for training. Original short side typically >= 256 px after filtering. [uncertain]",
+  "train_val_test_split": "Official split provided for EmoSet-118K: roughly 80% train / 5% val / 15% test (approximately 94,481 train / 5,915 val / 17,706 test), random split with stratification across 8 emotion classes. EmoSet-3.3M is provided as an additional weakly-labeled corpus for pretraining. [uncertain]",
+  "demographic_metadata": "No explicit demographic metadata for depicted humans. Images cover diverse scenes, objects, and human actions globally, but the source platforms (Flickr, Pinterest, Unsplash, Pixabay, Instagram) skew Western / English-speaking. Mikels' emotion taxonomy itself is grounded in Western affective psychology, which may not transfer cleanly across cultures. No age/gender/ethnicity balance audit reported.",
+  "top_sota_model": "The original ICCV 2023 paper reports a Swin-Transformer-based baseline jointly trained with attribute heads achieving ~78-80% accuracy on EmoSet-118K test set across 8 categories; subsequent VLM/CLIP-based methods (e.g., CLIP-ViT-L/14 fine-tuning) and follow-up multi-task transformers have pushed accuracy slightly higher. [uncertain]",
+  "uncertain": [
+    "license (exact terms not always specified; inherits original image licenses)",
+    "resolution_or_fps (heterogeneous web sources)",
+    "train_val_test_split exact counts",
+    "top_sota_model (rapidly evolving since ICCV 2023 release)",
+    "num_images breakdown between weakly- and strongly-labeled subsets across releases"
+  ]
+}

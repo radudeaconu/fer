@@ -1,0 +1,28 @@
+{
+  "name": "FER-2013",
+  "type": "dataset",
+  "subcategory": "static-image",
+  "release_year": 2013,
+  "authors_or_creators": "Ian J. Goodfellow, Dumitru Erhan, Pierre Luc Carrier, Aaron Courville, Mehdi Mirza, Ben Hamner, Will Cukierski, Yichuan Tang, David Thaler, Dong-Hyun Lee, Yingbo Zhou, Chetan Ramaiah, Fangxiang Feng, Ruifan Li, Xiaojie Wang, Dimitris Athanasakis, John Shawe-Taylor, Maxim Milakov, John Park, Radu Ionescu, Marius Popescu, Cristian Grozea, James Bergstra, Jingjing Xie, Lukasz Romaszko, Bing Xu, Zhang Chuang, Yoshua Bengio. Primary affiliation: Université de Montréal (LISA Lab); created for the ICML 2013 Representation Learning Workshop challenge organized via Kaggle.",
+  "paper_link": "https://arxiv.org/abs/1307.0414",
+  "publication_venue": "ICML 2013 Workshop on Challenges in Representation Learning",
+  "num_images": 35887,
+  "num_subjects": "unknown (no subject identity labels — images crawled from Google image search)",
+  "num_classes": 7,
+  "label_taxonomy": "basic-7 (0=Angry, 1=Disgust, 2=Fear, 3=Happy, 4=Sad, 5=Surprise, 6=Neutral)",
+  "in_the_wild_or_lab": "in-the-wild",
+  "license": "Open for research use via Kaggle competition terms (effectively research-only, no formal redistributable license attached); often treated as public-domain-style benchmark in academic work",
+  "download_url": "https://www.kaggle.com/datasets/msambare/fer2013 (also https://www.kaggle.com/c/challenges-in-representation-learning-facial-expression-recognition-challenge/data)",
+  "known_issues": "FER-2013 has well-documented label noise: independent re-annotation studies estimate human accuracy on the test set at roughly 65-68%, which serves as an empirical upper bound and indicates a substantial fraction of mislabeled or ambiguous examples. The 'disgust' class is severely underrepresented (~547 training images vs ~7,000+ for happy), causing class imbalance. Faces were collected via Google image search using emotion keywords, so labels reflect query terms rather than verified expressions; many images contain occlusions, watermarks, cartoons/non-faces, low resolution (48x48 grayscale), or extreme poses. The auto-aligned crops are often poorly centered. Demographic distribution is biased toward Western, adult, lighter-skinned subjects with no documented age/gender/ethnicity metadata. Microsoft's FER+ relabeling project (Barsoum et al., 2016) provided crowdsourced multi-label re-annotations and showed the original labels disagree with majority crowd votes on ~25-30% of samples; FER+ is now commonly used as a cleaner alternative. No subject identity information, so subject-independent evaluation is impossible.",
+  "modality": "image",
+  "annotation_method": "crowdsourced (single-label keyword-based labels collected via Google image-search queries; later relabeled by crowd consensus in FER+)",
+  "resolution_or_fps": "48x48 grayscale",
+  "train_val_test_split": "Standard split: 28,709 Training / 3,589 PublicTest (validation) / 3,589 PrivateTest (final test). Splits are random (not subject-independent — no subject IDs are available).",
+  "demographic_metadata": "No official demographic labels released. Empirical analyses report skew toward Western, adult, lighter-skinned faces with under-representation of children, elderly, and darker-skinned subjects; gender distribution is roughly mixed but not formally documented.",
+  "top_sota_model": "Reported state-of-the-art on FER-2013 PrivateTest is around 76-77% top-1 accuracy (e.g., Khaireddin & Chen 2021 'Facial Emotion Recognition: State of the Art Performance on FER2013' reports ~73.28% with VGG; ensemble/ViT methods such as Ensemble ResMaskNet and Residual Masking Network reach ~76.8%). Human accuracy on the same test is ~65±5%, so reported SOTA exceeds human-level. [uncertain]",
+  "uncertain": [
+    "num_subjects",
+    "license",
+    "top_sota_model"
+  ]
+}

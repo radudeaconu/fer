@@ -1,0 +1,29 @@
+{
+  "name": "CAS(ME)^3",
+  "type": "dataset",
+  "subcategory": "micro-expression",
+  "release_year": 2022,
+  "authors_or_creators": "Jingting Li, Zizhao Dong, Shaoyuan Lu, Su-Jing Wang, Wen-Jing Yan, Yinhuan Ma, Yong Liu, Changbing Huang, Xiaolan Fu — Institute of Psychology, Chinese Academy of Sciences (CAS)",
+  "paper_link": "https://doi.org/10.1109/TPAMI.2022.3174895",
+  "publication_venue": "IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI), 2023",
+  "num_images": "Approximately 1,109 micro-expression samples and 3,490 macro-expression samples (Part A); ~166 long videos in Part C (mock-crime); total ~80 hours of video across all three parts",
+  "num_subjects": "Approximately 100 subjects in Part A; additional subjects in Parts B and C (over 247 participants in total across released parts)",
+  "num_classes": 7,
+  "label_taxonomy": "mixed: 7 emotion categories (happiness, disgust, fear, anger, sadness, surprise, others) plus Action Units (AUs), self-report emotion labels, and onset/apex/offset frame annotations",
+  "in_the_wild_or_lab": "lab-controlled",
+  "license": "research-only (EULA / agreement required from Institute of Psychology, CAS)",
+  "download_url": "https://psych.ac.cn/pyu_lab/services/casme3.html",
+  "known_issues": "Strong class imbalance across emotion categories (very few fear/sadness samples). Subjects are predominantly Chinese (Han ethnicity), which limits cross-cultural/ethnic generalization despite the cross-cultural design intent. Mock-crime / deception scenarios in Part C raise ethical considerations regarding deception research; access requires signed agreement. Annotation of micro-expression onset/apex/offset frames is inherently noisy and inter-rater agreement is moderate. Depth and physiological signals in Part B are not synchronized perfectly with all video frames in some sessions.",
+  "modality": "multimodal: video (RGB) + depth (Part B) + physiological/collateral cues (Part B); deception scenario video (Part C)",
+  "annotation_method": "expert (trained FACS coders annotated AUs and onset/apex/offset; emotion labels combined self-report and expert coding)",
+  "resolution_or_fps": "1280x720 RGB at 30 fps (Part A primary); high-speed and depth streams in Part B",
+  "train_val_test_split": "No single fixed official split; the MEGC (Micro-Expression Grand Challenge) protocol uses Leave-One-Subject-Out (LOSO) cross-validation for both spotting and recognition tasks on Part A",
+  "demographic_metadata": "Subjects are mainly Chinese (East Asian) university students/young adults; gender roughly balanced; narrow age range (approximately 20-30 years); limited ethnic diversity",
+  "top_sota_model": "On CAS(ME)^3 Part A micro-expression spotting (MEGC 2022/2023), top systems achieve F1 ~0.05-0.10 (spotting is very challenging); for recognition (3-class), methods such as FeatRef, MER-Sup, and recent transformer-based approaches (e.g., MMNet, FRL-DGT) report UF1/UAR around 0.30-0.50 under LOSO. Exact numbers vary by protocol and class subset.",
+  "uncertain": [
+    "num_images",
+    "num_subjects",
+    "train_val_test_split",
+    "top_sota_model"
+  ]
+}

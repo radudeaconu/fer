@@ -1,0 +1,30 @@
+{
+  "name": "Oulu-CASIA NIR&VIS Facial Expression Database",
+  "type": "dataset",
+  "subcategory": "static-image",
+  "release_year": 2011,
+  "authors_or_creators": "Guoying Zhao, Xiaohua Huang, Matti Taini, Stan Z. Li, Matti Pietikainen. Joint work between the Center for Machine Vision Research, University of Oulu (Finland) and the Institute of Automation, Chinese Academy of Sciences (CASIA, China).",
+  "paper_link": "https://doi.org/10.1016/j.imavis.2011.07.002",
+  "publication_venue": "Image and Vision Computing (IVC), Vol. 29, Issue 9, 2011",
+  "num_images": "Approximately 2,880 image sequences in total (80 subjects x 6 expressions x 3 illumination conditions x 2 modalities). Each sequence contains roughly 9-30 frames from neutral onset to apex; the commonly used static-image evaluation extracts the last (apex) 1-3 frames per sequence, giving on the order of 480 apex images per illumination/modality condition. [uncertain]",
+  "num_subjects": 80,
+  "num_classes": 6,
+  "label_taxonomy": "basic-6 (anger, disgust, fear, happiness, sadness, surprise) — neutral is implicitly the onset frame and is not part of the 6-way classification",
+  "in_the_wild_or_lab": "lab-controlled",
+  "license": "research-only (academic EULA via the University of Oulu Center for Machine Vision and Signal Analysis); requires signed end-user license agreement [uncertain]",
+  "download_url": "https://www.oulu.fi/cmvs/node/41316 (University of Oulu CMVS dataset page; access requires a signed EULA request)",
+  "known_issues": "Lab-controlled with a relatively small subject pool (80) and only posed expressions, leading to limited generalization to in-the-wild conditions. Demographic coverage is biased: roughly half subjects from Finland and half from China, predominantly young adults (≈23-58 years), with a male-skewed gender distribution; African and other ethnicities are not represented. Each expression sequence runs from neutral onset to peak apex, so frame-selection (apex vs. all frames) strongly affects reported accuracy and makes cross-paper comparison tricky. The standard 10-fold subject-independent protocol is not officially fixed, so different papers use different fold splits. Some sequences are missing or incomplete for certain (subject x illumination x modality) combinations. Only 6 basic emotions are labeled; no compound, AU, or valence-arousal annotations are provided.",
+  "modality": "image (dual modality: Near-Infrared NIR + Visible-light VIS, captured simultaneously)",
+  "annotation_method": "expert (posed expressions performed by subjects on instruction; labels assigned per the requested expression category, no separate FACS coding)",
+  "resolution_or_fps": "320 x 240 pixels per frame, captured at 25 fps (both NIR and VIS cameras synchronized) [uncertain]",
+  "train_val_test_split": "No official train/val/test split. The de facto standard protocol is 10-fold subject-independent cross-validation on the VIS strong-illumination subset using the last 1-3 apex frames of each sequence; results are reported as mean accuracy across folds. Some works also report NIR-only or NIR+VIS fusion results.",
+  "demographic_metadata": "80 subjects total: approximately 50 Finnish and 30 Chinese participants. Age range roughly 23-58 years. Gender skewed male (around 73.8% male / 26.2% female per the original paper). No African, South Asian, or Latin American representation; limited age diversity (no children or elderly). [uncertain]",
+  "top_sota_model": "Reported accuracies on the VIS strong-illumination 10-fold subject-independent protocol commonly exceed 88-90%. Examples include DeepEmotion / IL-CNN / FN2EN distillation works (~87-88%), and more recent self-supervised or transformer-based methods (e.g., MA-Net, DACL, POSTER) reporting around 89-91% mean accuracy. The exact current state-of-the-art is contested due to inconsistent fold definitions across papers. [uncertain]",
+  "uncertain": [
+    "num_images",
+    "license",
+    "resolution_or_fps",
+    "demographic_metadata",
+    "top_sota_model"
+  ]
+}

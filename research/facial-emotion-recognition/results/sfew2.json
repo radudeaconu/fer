@@ -1,0 +1,29 @@
+{
+  "name": "SFEW 2.0 (Static Facial Expressions in the Wild 2.0)",
+  "type": "dataset",
+  "subcategory": "static-image",
+  "release_year": 2015,
+  "authors_or_creators": "Abhinav Dhall, Roland Goecke, Simon Lucey, Tamas Gedeon — Australian National University (ANU) and University of Canberra. Original SFEW introduced at ICCV-W 2011; SFEW 2.0 released as the static benchmark for the EmotiW 2015 challenge.",
+  "paper_link": "https://doi.org/10.1109/ICCVW.2011.6130508 (original SFEW, 2011); EmotiW 2015 description: https://doi.org/10.1145/2818346.2829994",
+  "publication_venue": "IEEE ICCV Workshops (BEFIT) 2011 — 'Static Facial Expressions in Tough Conditions: Data, Evaluation Protocol and Benchmark'; updated as SFEW 2.0 in the EmotiW 2015 Challenge (ACM ICMI Workshops).",
+  "num_images": 1766,
+  "num_subjects": "Approximately 95+ unique actors/identities sampled from movie clips of the AFEW corpus (no exact subject count published for 2.0). [uncertain]",
+  "num_classes": 7,
+  "label_taxonomy": "basic-7 (anger, disgust, fear, happiness, sadness, surprise, neutral)",
+  "in_the_wild_or_lab": "in-the-wild (frames extracted from feature-length movies, exhibiting unconstrained pose, illumination, occlusion, and expression intensity)",
+  "license": "Research-only EULA; redistribution prohibited. Access granted by the authors after signing an end-user license agreement (request via the EmotiW / SFEW website).",
+  "download_url": "https://cs.anu.edu.au/few/emotiw.html (EmotiW challenge page — request form for SFEW/AFEW); historical: https://users.cecs.anu.edu.au/~few/AFEW.html",
+  "known_issues": "Small dataset (~1.8k images) with significant class imbalance (happy and neutral are over-represented; disgust and fear are under-represented). Faces are extracted from movies, so they depict acted (not fully spontaneous) emotion and contain motion blur, occlusion, low resolution, and extreme poses — making absolute accuracy low (early baselines ~26-39%). Test-set labels are withheld (server-side evaluation only during EmotiW), which limits open SOTA comparison after the challenge cycle. Demographic skew toward Western (Hollywood) actors. Some label noise reported because frames are sampled near AFEW clip peaks but expressions evolve over the clip, occasionally yielding ambiguous single-frame labels. Subject overlap between train/val/test was minimized but not formally verified subject-independent across all splits in earlier releases.",
+  "modality": "image",
+  "annotation_method": "expert (semi-automatic — frames selected by the Recommender system from AFEW clips and labeled by trained human annotators using clip-level emotion labels propagated to frames; verified by experts)",
+  "resolution_or_fps": "Variable; cropped face images typically around 100-720 px on the long side. Aligned faces are commonly resized to 224 x 224 for deep learning. [uncertain]",
+  "train_val_test_split": "Subject-independent (best-effort) split: Train ~958 images / Val ~436 images / Test ~372 images. Test labels are withheld; Val accuracy is the de-facto reported number in the literature.",
+  "demographic_metadata": "Sourced from Hollywood movies, so demographics skew toward adult Caucasian actors with under-representation of Asian, African, South Asian, and elderly subjects. Both genders represented but exact gender/age/ethnicity counts are not officially released. [uncertain]",
+  "top_sota_model": "Validation-set accuracy commonly reported in the 58-62% range; e.g., Region Attention Network (RAN, Wang et al. 2020) reports ~56.4%, and more recent transformer-based methods (e.g., POSTER++, APViT, TransFER) report ~60-62% on SFEW 2.0 val. SFEW 2.0 is no longer a primary leaderboard target, so numbers are scattered in the literature. [uncertain]",
+  "uncertain": [
+    "num_subjects",
+    "resolution_or_fps",
+    "demographic_metadata",
+    "top_sota_model"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "name": "AFEW (Acted Facial Expressions in the Wild)",
+  "type": "dataset",
+  "subcategory": "dynamic-video",
+  "release_year": 2011,
+  "authors_or_creators": "Abhinav Dhall, Roland Goecke, Simon Lucey, Tamas Gedeon — Australian National University (ANU), University of Canberra, CMU",
+  "paper_link": "https://doi.org/10.1109/MMUL.2012.26",
+  "publication_venue": "IEEE MultiMedia, 2012 (initial dataset paper at FG 2011 workshop / BeFIT)",
+  "num_images": "AFEW 7.0: ~1809 video clips total (Train ~773 / Val ~383 / Test ~653)",
+  "num_subjects": "330+ subjects (drawn from 54+ movies and TV shows; exact count varies by version)",
+  "num_classes": 7,
+  "label_taxonomy": "basic-7 (Anger, Disgust, Fear, Happiness, Sadness, Surprise, Neutral)",
+  "in_the_wild_or_lab": "in-the-wild (movie/TV clips)",
+  "license": "research-only (EULA / End User License Agreement required; non-commercial academic use)",
+  "download_url": "https://cs.anu.edu.au/few/AFEW.html (also distributed via the EmotiW Challenge organizers)",
+  "known_issues": "Although called 'in-the-wild', clips are sourced from acted movie/TV scenes, so expressions are professional-actor portrayals rather than spontaneous behavior. Class imbalance is notable (Happy/Neutral/Angry over-represented; Disgust under-represented). Demographic bias toward Western/Hollywood content (predominantly Caucasian actors, English-language). Test-set labels are not publicly released — evaluation historically required submission to EmotiW organizers, which limits reproducibility outside the challenge. Some clips contain multiple faces or occlusions, requiring face tracking. Clip lengths and aspect ratios vary widely. Lip-reading / contextual cues (audio, body) can leak label information.",
+  "modality": "audio-visual (video clips with audio track; commonly used video-only)",
+  "annotation_method": "expert (semi-automatic recommender system 'SAFE' followed by human expert verification)",
+  "resolution_or_fps": "Variable resolution (typical 720x576 / 576x256 cropped face track region); ~24-30 fps depending on source",
+  "train_val_test_split": "AFEW 7.0 official subject-independent split: Train 773 clips / Val 383 clips / Test 653 clips. Splits are subject- and movie-independent to prevent identity leakage. Used as the dynamic-video track of EmotiW 2013-2019.",
+  "demographic_metadata": "Predominantly Western Hollywood actors; skewed toward Caucasian subjects with smaller representation of other ethnicities. Both genders represented but male-skewed. Wide age range from children to elderly. No formal demographic balancing.",
+  "top_sota_model": "Former Audio-Visual EmotiW winners reached ~62-63% accuracy on the AFEW test set (e.g., Liu et al. multi-modal ensembles, EmotiW 2018/2019). Video-only methods such as Former-DFER and transformer-based dynamic FER models report ~50-55% on AFEW val; multi-modal (audio+video+landmarks) ensembles push past 60%.",
+  "uncertain": [
+    "num_subjects",
+    "release_year",
+    "resolution_or_fps",
+    "top_sota_model"
+  ]
+}

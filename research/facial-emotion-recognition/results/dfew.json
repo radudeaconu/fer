@@ -1,0 +1,28 @@
+{
+  "name": "DFEW (Dynamic Facial Expression in the Wild)",
+  "type": "dataset",
+  "subcategory": "dynamic-video",
+  "release_year": 2020,
+  "authors_or_creators": "Xingxun Jiang, Yuan Zong, Wenming Zheng, Chuangao Tang, Wanchuang Xia, Cheng Lu, Jiateng Liu. Anhui University and Southeast University (Key Laboratory of Child Development and Learning Science).",
+  "paper_link": "https://arxiv.org/abs/2008.05924",
+  "publication_venue": "ACM Multimedia (ACM MM) 2020",
+  "num_images": "16,372 video clips selected from over 1,500 movies",
+  "num_subjects": "Not explicitly reported (clips drawn from 1,500+ movies; subject identities are not annotated)",
+  "num_classes": 7,
+  "label_taxonomy": "basic-7 (happy, sad, neutral, angry, surprise, disgust, fear); each clip has a single-label annotation and a 7-dimensional probability/distribution annotation aggregated from ~10-12 annotators",
+  "in_the_wild_or_lab": "in-the-wild",
+  "license": "research-only; available via signed End User License Agreement (EULA) submitted to the authors",
+  "download_url": "https://dfew-dataset.github.io",
+  "known_issues": "Significant class imbalance: happy, sad and neutral classes dominate while disgust and fear are heavily underrepresented (disgust has the fewest clips, often <500). Annotation ambiguity in movie clips with mixed or transitional emotions; the 7-dimensional probability label partially mitigates this. Demographic bias toward actors in (largely Chinese and Hollywood) commercial cinema, with limited child and elderly representation. Subject identity is not labeled, so the official 5-fold split is movie-independent rather than strictly subject-independent, which can leak similar visual contexts across folds. Some clips contain motion blur, occlusion, low light, and multiple faces, which is intentional for the in-the-wild setting but increases label noise. Distribution restricted by movie copyright; only cropped face regions / clip indices are shared.",
+  "modality": "video",
+  "annotation_method": "crowdsourced/expert hybrid: each clip independently annotated by ~10-12 trained annotators under a double-blind professional protocol; final single label by majority vote and 7-d probability label by normalized vote distribution",
+  "resolution_or_fps": "Variable spatial resolution (face crops typically resized to 112x112 or 224x224 for benchmarks); clips are short (~2-5 seconds) at the original movie frame rate (commonly 24-30 fps)",
+  "train_val_test_split": "Standard 5-fold subject/movie-independent cross-validation provided by the authors; metrics reported are unweighted average recall (UAR) and weighted average recall (WAR) averaged across the 5 folds. No fixed train/val/test split outside of the 5-fold CV.",
+  "demographic_metadata": "Drawn from 1,500+ movies including a substantial proportion of Chinese-language films alongside English-language productions, providing better East Asian representation than many Western-centric benchmarks; however, no formal age/gender/ethnicity statistics are released and child/elderly classes are sparse.",
+  "top_sota_model": "As of 2024-2025, top results are obtained by self-supervised video transformers and audio-visual models. Representative SOTA: MAE-DFER (Sun et al., ACM MM 2023) ~63.4% UAR / 74.4% WAR; S2D and FineCLIPER (2024) push WAR above 76%; recent VLM/MLLM-based methods (e.g., Emotion-LLaMA, EmoLA) report WAR ~77-78% under the 5-fold protocol.",
+  "uncertain": [
+    "num_subjects",
+    "resolution_or_fps",
+    "top_sota_model"
+  ]
+}

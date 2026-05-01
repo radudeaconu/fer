@@ -1,0 +1,26 @@
+{
+  "name": "CK+ (Extended Cohn-Kanade Dataset)",
+  "type": "dataset",
+  "subcategory": "static-image",
+  "release_year": 2010,
+  "authors_or_creators": "Patrick Lucey, Jeffrey F. Cohn, Takeo Kanade, Jason Saragih, Zara Ambadar, Iain Matthews. Affiliations: Robotics Institute, Carnegie Mellon University; University of Pittsburgh; Commonwealth Scientific and Industrial Research Organisation (CSIRO).",
+  "paper_link": "https://ieeexplore.ieee.org/document/5543262",
+  "publication_venue": "CVPR Workshops (CVPR-W) 2010 - IEEE Computer Society Conference on Computer Vision and Pattern Recognition Workshops",
+  "num_images": "593 video sequences (123 subjects). 327 sequences are emotion-labeled; commonly extracted as ~981 still images (typically 3 frames per sequence: neutral + onset + peak/apex) or just 327 apex frames depending on the protocol.",
+  "num_subjects": 123,
+  "num_classes": "7 (basic-7: anger, contempt, disgust, fear, happiness, sadness, surprise) when including contempt; sometimes used as 8 classes when neutral is added",
+  "label_taxonomy": "mixed: basic-7 emotion labels (with contempt instead of the more common Ekman basic-6 + neutral) on 327 sequences; full FACS Action Unit (AU) coding on the apex frame of all 593 sequences",
+  "in_the_wild_or_lab": "lab-controlled",
+  "license": "research-only (EULA / signed end-user license agreement required for academic, non-commercial use)",
+  "download_url": "https://www.jeffcohn.net/Resources/ (Cohn-Kanade page) — also distributed via http://www.consortium.ri.cmu.edu/ckagree/ historically; access requires a signed release form",
+  "known_issues": "Posed (acted) expressions rather than spontaneous, limiting ecological validity. Small size (only 327 emotion-labeled sequences) is prone to overfitting; many published >99% accuracies use random splits with subject leakage and are not directly comparable to leave-one-subject-out (LOSO) results. Strong demographic imbalance: predominantly North American university student subjects, ~81% Euro-American, ~13% Afro-American, ~6% other; ~69% female. Frontal pose, controlled lighting, and uniform background do not reflect in-the-wild conditions, so models trained only on CK+ generalize poorly. Contempt class is very small (~18 sequences), creating severe class imbalance.",
+  "modality": "video (image sequences from neutral to peak expression)",
+  "annotation_method": "expert (FACS-certified coders performed AU annotation; emotion labels validated against FACS-based emotion prediction tables)",
+  "resolution_or_fps": "640x490 or 640x480 pixels, 8-bit grayscale or 24-bit color; frame rate approximately 30 fps",
+  "train_val_test_split": "No official train/val/test split. Two community-standard protocols: (1) leave-one-subject-out (LOSO) cross-validation (subject-independent, recommended); (2) k-fold cross-validation (often 10-fold) on extracted apex frames (frequently NOT subject-independent in older work). Many papers use last 1-3 frames per sequence as samples.",
+  "demographic_metadata": "210 adult subjects originally recruited (123 included in CK+), ages 18-50; approximately 69% female, 31% male; 81% Euro-American, 13% Afro-American, 6% other groups (Asian/Latino). Western, university-population bias; limited age range (predominantly young adults).",
+  "top_sota_model": "Many recent CNN/ViT methods report >99% accuracy on CK+ under 10-fold cross-validation (e.g., DDA-Net, FAN, SCN variants reach 99.5-100%); under stricter LOSO protocols reported accuracies are typically 95-99%. The benchmark is widely considered saturated. [uncertain] specific current SOTA varies by protocol.",
+  "uncertain": [
+    "top_sota_model"
+  ]
+}

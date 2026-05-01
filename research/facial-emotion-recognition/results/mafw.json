@@ -1,0 +1,29 @@
+{
+  "name": "MAFW (Multi-modal Affective Facial expressions in the Wild)",
+  "type": "dataset",
+  "subcategory": "dynamic-video",
+  "release_year": 2022,
+  "authors_or_creators": "Yuanyuan Liu, Wei Dai, Chuanxu Feng, Wenbin Wang, Guanghao Yin, Jiabei Zeng, Shiguang Shan. Beijing University of Posts and Telecommunications (BUPT) and Institute of Computing Technology, Chinese Academy of Sciences.",
+  "paper_link": "https://dl.acm.org/doi/10.1145/3503161.3548190 (ACM MM 2022); extended journal version at IEEE TPAMI 2023",
+  "publication_venue": "ACM MM 2022 (extended in IEEE TPAMI 2023)",
+  "num_images": 10045,
+  "num_subjects": "[uncertain]",
+  "num_classes": 43,
+  "label_taxonomy": "mixed: 11 single-emotion classes (anger, disgust, fear, happiness, neutral, sadness, surprise, contempt, anxiety, helplessness, disappointment) + 32 compound-emotion classes; each clip additionally annotated with bilingual (Chinese + English) free-text emotion captions describing facial expression and emotional cause.",
+  "in_the_wild_or_lab": "in-the-wild",
+  "license": "research-only; access requires signing an End User License Agreement (EULA) via the official site.",
+  "download_url": "https://mafw-database.github.io",
+  "known_issues": "Heavy class imbalance: the 11 single-emotion classes are dominated by happiness/neutral/sadness/anger while contempt, helplessness, disappointment, and most of the 32 compound classes are rare, making evaluation of compound emotions very low-shot. Clips are sourced from movies, TV dramas, and short videos (predominantly Chinese-language and Hollywood content), so cultural/linguistic bias skews Chinese + Western. Annotation is performed by 11 trained annotators with majority voting; subjective compound-emotion labels still suffer from inter-annotator disagreement. Faces of well-known actors recur across clips, raising potential identity leakage between train and test for subject-dependent evaluation. Audio track is included (multi-modal), but background music/non-speech audio can bias audio-visual models. EULA-restricted, so redistribution is prohibited.",
+  "modality": "audio-visual (also provides bilingual text captions, so effectively multimodal-text)",
+  "annotation_method": "expert (11 trained annotators per clip with majority voting); captions written by trained annotators in both Chinese and English",
+  "resolution_or_fps": "Clips are ~1-10 seconds; original frame rate ~30 fps; resolution varies by source video, faces cropped/aligned for benchmark use. [uncertain]",
+  "train_val_test_split": "Official 5-fold subject-independent cross-validation protocol for both the 11-class single-emotion task and the 43-class (11+32) compound task. Reported metrics are UAR (unweighted average recall) and WAR (weighted average recall) averaged over the 5 folds.",
+  "demographic_metadata": "Source clips drawn primarily from Chinese and English/Hollywood movies and TV; gender roughly balanced; no fine-grained age or ethnicity statistics officially released. Predominantly East Asian and Caucasian subjects. [uncertain on exact distribution]",
+  "top_sota_model": "On the 11-class single-emotion task, recent methods such as MAE-DFER, SVFAP, HiCMAE, FineCLIPER, and Emotion-LLaMA report UAR in the ~42-48% range and WAR in the ~54-60% range. HiCMAE and Emotion-LLaMA (audio-visual / MLLM-based) are among the strongest as of 2024-2025. [uncertain on exact current SOTA]",
+  "uncertain": [
+    "num_subjects",
+    "resolution_or_fps",
+    "demographic_metadata",
+    "top_sota_model"
+  ]
+}

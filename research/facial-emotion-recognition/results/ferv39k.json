@@ -1,0 +1,30 @@
+{
+  "name": "FERV39k",
+  "type": "dataset",
+  "subcategory": "dynamic-video",
+  "release_year": 2022,
+  "authors_or_creators": "Yan Wang, Yixuan Sun, Yiwen Huang, Zhongying Liu, Shuyong Gao, Wei Zhang, Weifeng Ge, Wenqiang Zhang. Hefei University of Technology / Fudan University.",
+  "paper_link": "https://arxiv.org/abs/2203.09463",
+  "publication_venue": "CVPR 2022",
+  "num_images": 38935,
+  "num_subjects": "[uncertain]",
+  "num_classes": 7,
+  "label_taxonomy": "basic-7 (anger, disgust, fear, happiness, neutral, sadness, surprise)",
+  "in_the_wild_or_lab": "in-the-wild",
+  "license": "research-only (EULA / signed agreement required) [uncertain]",
+  "download_url": "https://wangyanckxx.github.io/Proj_CVPR2022_FERV39k.html",
+  "known_issues": "Class imbalance is significant: 'happy', 'neutral', and 'sad' dominate while 'disgust' and 'fear' are very rare, leading to lower per-class recall on minority classes. Clips were sourced from web videos (movies, TV shows, daily-life clips, talk shows, etc.), so distribution skews toward Western/East Asian media and the dataset inherits actor-portrayed expression bias for cinematic scenes. Each clip is annotated by 30 crowdsourced annotators followed by professional re-check; some clips with low inter-annotator agreement were filtered out, but residual label ambiguity remains for subtle/compound expressions. No explicit demographic balancing across age/gender/ethnicity. Access requires signing a research-use agreement.",
+  "modality": "video",
+  "annotation_method": "crowdsourced (30 annotators per clip) with professional expert re-check / filtering",
+  "resolution_or_fps": "Clips are short (~1-3 seconds, average ~30 frames). Faces are cropped and aligned; raw resolution varies by source video. [uncertain]",
+  "train_val_test_split": "Official 80/20 train/test split (~31,148 train / ~7,787 test clips). Splits are scene-balanced; the benchmark also provides 4 super-scene-specific splits (Daily Life, Weak-Interactive Shows, Strong-Interactive Activities, Anomaly Issues) for cross-scene evaluation.",
+  "demographic_metadata": "No formal demographic annotations released. Source videos are predominantly East Asian and Western media; gender/age/ethnicity distributions are not officially reported. [uncertain]",
+  "top_sota_model": "MAE-DFER (Sun et al., ACM MM 2023) and S2D / SVFAP report ~52-53% WAR / ~43-44% UAR. More recent VLM-based methods (FineCLIPER, HiCMAE, Emotion-LLaMA) push WAR toward ~55%+. [uncertain on exact current SOTA as of 2026]",
+  "uncertain": [
+    "num_subjects",
+    "license",
+    "resolution_or_fps",
+    "demographic_metadata",
+    "top_sota_model"
+  ]
+}

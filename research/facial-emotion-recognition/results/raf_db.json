@@ -1,0 +1,27 @@
+{
+  "name": "RAF-DB (Real-world Affective Faces Database)",
+  "type": "dataset",
+  "subcategory": "static-image",
+  "release_year": 2017,
+  "authors_or_creators": "Shan Li, Weihong Deng, JunPing Du. Pattern Recognition and Intelligent System Laboratory, Beijing University of Posts and Telecommunications (BUPT).",
+  "paper_link": "https://openaccess.thecvf.com/content_cvpr_2017/papers/Li_Reliable_Crowdsourcing_and_CVPR_2017_paper.pdf",
+  "publication_venue": "CVPR 2017 (extended in IEEE TIP 2019)",
+  "num_images": 29672,
+  "num_subjects": "[uncertain]",
+  "num_classes": "7 (basic) / 11 (compound, RAF-ML extension uses 12 compound categories)",
+  "label_taxonomy": "mixed: basic-7 (surprise, fear, disgust, happiness, sadness, anger, neutral) for the basic subset; compound (e.g., happily surprised, sadly fearful) for the compound subset; RAF-ML extension provides multi-label compound annotations",
+  "in_the_wild_or_lab": "in-the-wild",
+  "license": "research-only (EULA / signed agreement required via release form on the BUPT PRIS lab site)",
+  "download_url": "http://www.whdeng.cn/RAF/model1.html",
+  "known_issues": "Demographic imbalance: skewed toward Caucasian faces and adults; provided age/gender/race attributes are coarse. Class imbalance is significant in the basic subset (happiness and neutral dominate; fear and disgust are rare), which inflates Overall Accuracy (WAR) over Mean-Class Accuracy (UAR). Compound subset is much smaller and noisier than the basic subset. Some label noise remains despite the 40-annotator EM-based reliable crowdsourcing protocol. Images sourced from the internet, raising consent and copyright considerations; redistribution is forbidden under the EULA.",
+  "modality": "image",
+  "annotation_method": "crowdsourced (about 40 annotators per image, aggregated with an EM-based reliable estimation algorithm); attribute labels (age group, gender, race) also provided",
+  "resolution_or_fps": "Aligned faces released at 100x100 pixels; original images vary in resolution",
+  "train_val_test_split": "Basic subset: 15,339 images split into 12,271 training and 3,068 test images (random split, not subject-independent). Compound subset: 3,954 training and 989 test images. No official validation split.",
+  "demographic_metadata": "Annotated attributes: 5 age groups (0-3, 4-19, 20-39, 40-69, 70+), 3 gender categories (male, female, unsure), 3 race categories (Caucasian, African-American, Asian). Caucasian and adult subjects dominate; African-American and elderly subjects are underrepresented.",
+  "top_sota_model": "POSTER++ / POSTER V2 (Mao et al., 2023) reports ~92.2% Overall Accuracy on the RAF-DB basic subset; recent transformer-based methods (e.g., LA-Net, S2D, MA-Net variants) report 92-93% range. [uncertain] exact current SOTA may be slightly higher with VLM/MLLM-based approaches.",
+  "uncertain": [
+    "num_subjects",
+    "top_sota_model"
+  ]
+}

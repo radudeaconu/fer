@@ -1,0 +1,200 @@
+topic: Facial Emotion Recognition - SOTA deep learning models and benchmark datasets
+created: 2026-04-28
+
+# detail_level scale: brief -> moderate -> detailed
+# - brief: one line / single value / yes-no
+# - moderate: 1-2 sentences or short list
+# - detailed: paragraph or structured object
+
+categories:
+
+  # ============================================================
+  # COMMON FIELDS — apply to every item (model OR dataset)
+  # ============================================================
+  common:
+    - name: name
+      description: Official name of the model or dataset
+      detail_level: brief
+
+    - name: type
+      description: model | dataset
+      detail_level: brief
+
+    - name: subcategory
+      description: e.g. static-image / dynamic-video / 3d / au / micro-expression / vlm / mllm / foundation-model
+      detail_level: brief
+
+    - name: release_year
+      description: Year of first publication or dataset release
+      detail_level: brief
+
+    - name: authors_or_creators
+      description: Lead authors and primary affiliated institution
+      detail_level: moderate
+
+    - name: paper_link
+      description: arXiv / DOI / publisher URL of the canonical paper
+      detail_level: brief
+
+    - name: publication_venue
+      description: Conference / journal of canonical paper
+      detail_level: brief
+
+  # ============================================================
+  # DATASET FIELDS  (user-specified core + supplemental)
+  # ============================================================
+  datasets:
+    # --- core (user-requested) ---
+    - name: num_images
+      description: Total number of samples (images or video clips). Use clips for video datasets.
+      detail_level: brief
+
+    - name: num_subjects
+      description: Number of unique identities / subjects represented
+      detail_level: brief
+
+    - name: num_classes
+      description: Number of emotion / expression categories
+      detail_level: brief
+
+    - name: label_taxonomy
+      description: basic-7 | basic-8 | compound | valence-arousal | action-units | dimensional-PAD | mixed (specify which)
+      detail_level: moderate
+
+    - name: in_the_wild_or_lab
+      description: in-the-wild (web/movies) | lab-controlled | mixed
+      detail_level: brief
+
+    - name: license
+      description: License type (Apache, MIT, CC, research-only, EULA, etc.)
+      detail_level: brief
+
+    - name: download_url
+      description: Where to obtain the dataset (may require request form)
+      detail_level: brief
+
+    - name: known_issues
+      description: Documented label noise, demographic bias, withdrawal status, ethical/consent concerns. CRITICAL for FER2013 (label noise) and AffectNet (class imbalance, Western bias).
+      detail_level: detailed
+
+    # --- supplemental ---
+    - name: modality
+      description: image | video | 3d | 4d | audio-visual | multimodal-text
+      detail_level: brief
+
+    - name: annotation_method
+      description: crowdsourced | expert | automatic-pseudo-labeled | self-report
+      detail_level: brief
+
+    - name: resolution_or_fps
+      description: Average image resolution (datasets) or fps for video clips
+      detail_level: brief
+
+    - name: train_val_test_split
+      description: Standard official splits (counts and protocol — subject-independent vs random)
+      detail_level: moderate
+
+    - name: demographic_metadata
+      description: Coverage and known imbalances across age / gender / ethnicity / culture
+      detail_level: moderate
+
+    - name: top_sota_model
+      description: Current best-published model on this dataset (with reported metric)
+      detail_level: moderate
+
+  # ============================================================
+  # MODEL FIELDS  (user-specified core + supplemental)
+  # ============================================================
+  models:
+    # --- core (user-requested) ---
+    - name: architecture_family
+      description: CNN | ViT | hybrid | VLM | MLLM | self-supervised
+      detail_level: brief
+
+    - name: backbone
+      description: Specific backbone (ResNet-50, IR-50, ViT-B/16, Swin-T, ConvNeXt, ConvNeXtV2, DINOv2, CLIP ViT-L/14, etc.)
+      detail_level: brief
+
+    - name: param_count
+      description: Total trainable parameters (millions)
+      detail_level: brief
+
+    - name: accuracy_fer2013
+      description: Reported top-1 accuracy on FER-2013 (%). Note protocol used (PublicTest vs PrivateTest).
+      detail_level: brief
+
+    - name: accuracy_affectnet
+      description: Top-1 on AffectNet — specify whether 7-class or 8-class, and Mean-class (UAR) vs Overall (WAR).
+      detail_level: moderate
+
+    - name: accuracy_rafdb
+      description: Top-1 on RAF-DB basic subset (%); note Mean-class vs Overall.
+      detail_level: brief
+
+    - name: code_link
+      description: Official GitHub / source repository
+      detail_level: brief
+
+    - name: pretrained_weights_available
+      description: yes / no / partial — and where to download
+      detail_level: brief
+
+    - name: inference_fps_or_latency
+      description: Reported inference FPS or per-image latency, with hardware
+      detail_level: moderate
+
+    - name: hardware_requirements
+      description: Training GPU type/count and inference minimum hardware
+      detail_level: moderate
+
+    - name: loss_function
+      description: Cross-entropy / focal / margin-based / KL-distillation / supervised-contrastive / multi-task combo
+      detail_level: moderate
+
+    - name: training_data_used
+      description: Datasets used for training and (optional) pretraining
+      detail_level: moderate
+
+    # --- supplemental ---
+    - name: pretraining_strategy
+      description: from-scratch | supervised-pretrain | face-recognition-pretrain | self-supervised (MAE/contrastive) | VLM-pretrain
+      detail_level: moderate
+
+    - name: pretraining_corpus
+      description: Corpus used for pretraining (ImageNet, MS-Celeb-1M, VoxCeleb2, CelebV-HQ, LAION, etc.)
+      detail_level: brief
+
+    - name: input_modality
+      description: RGB image | video clip | RGB+landmarks | RGB+AU | audio-visual | text-conditioned
+      detail_level: brief
+
+    - name: dynamic_fer_metrics
+      description: Accuracy on DFEW / FERV39k / MAFW (UAR + WAR) — for dynamic models
+      detail_level: moderate
+
+    - name: abaw_metrics
+      description: For ABAW-style models — VA CCC, expression F1, AU F1
+      detail_level: moderate
+
+    - name: cross_dataset_generalization
+      description: Reported transfer accuracy (e.g. RAF-DB -> AffectNet) when available
+      detail_level: moderate
+
+    - name: robustness
+      description: Performance on Occlusion-RAF-DB / Pose-RAF-DB and label-noise robustness if reported
+      detail_level: moderate
+
+    - name: explainability
+      description: Grad-CAM / attention map / MLLM rationale support
+      detail_level: brief
+
+    - name: deployment_target
+      description: server-GPU | edge | mobile | browser
+      detail_level: brief
+
+# ============================================================
+# UNCERTAIN FIELDS
+# Auto-populated during deep research phase when an item lacks a value
+# or the value is contested across sources.
+# ============================================================
+uncertain: []

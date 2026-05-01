@@ -1,0 +1,30 @@
+{
+  "name": "MMI Facial Expression Database",
+  "type": "dataset",
+  "subcategory": "static-image",
+  "release_year": 2005,
+  "authors_or_creators": "Maja Pantic, Michel F. Valstar, Ron Rademaker, Ludo Maat. Imperial College London (Department of Computing, iBUG group) and University of Twente (Human Media Interaction group).",
+  "paper_link": "https://doi.org/10.1109/ICME.2005.1521424",
+  "publication_venue": "Proceedings of IEEE International Conference on Multimedia and Expo (ICME) 2005",
+  "num_images": "Approximately 2,900 video sequences and around 700 static images in the full database (numbers grew over subsequent additions/parts of the database). [uncertain]",
+  "num_subjects": "Approximately 75 subjects across the various parts of the database [uncertain]",
+  "num_classes": "6 basic emotions (anger, disgust, fear, happiness, sadness, surprise) plus neutral; in addition, a separate Action Unit annotation track covers around 30+ FACS AUs.",
+  "label_taxonomy": "mixed: basic-6 emotion labels at sequence level, plus action-units (FACS AUs with onset/apex/offset frame-level temporal segmentation). Some parts include neutral, making it effectively basic-7 when neutral is included.",
+  "in_the_wild_or_lab": "lab-controlled",
+  "license": "research-only (web-accessible after registration via EULA on the MMI / iBUG project page)",
+  "download_url": "https://mmifacedb.eu/ (also linked from https://ibug.doc.ic.ac.uk/resources/mmi-facial-expression-database/ — registration and signed EULA required)",
+  "known_issues": "The dataset mixes posed and (a smaller set of) spontaneous expressions, with most early FER literature using only the posed subset, so 'MMI accuracy' numbers in the literature are not directly comparable across studies. Sequences begin and end at neutral and peak in the middle (apex), so frame-selection is non-trivial — the common practice is to extract the three peak frames per sequence, but exact protocols vary. There is no official train/val/test split, and 10-fold subject-independent cross-validation is the de facto standard, again with non-standard fold definitions across papers. Subjects wear glasses, accessories, and have moustaches/beards in several sequences which is realistic but introduces confounds. Demographic coverage is limited and Eurocentric (mostly European subjects, predominantly young adults). The AU annotations are expert-coded but only a subset of sequences are fully AU-coded; coverage is uneven. Profile-view recordings exist for some sessions but are far less commonly used. Access requires registration and the website has occasionally been intermittently available.",
+  "modality": "video (frontal-view sequences, with profile-view also available for a subset) plus a smaller set of still images",
+  "annotation_method": "expert (FACS-certified coders provided AU labels with onset/apex/offset frame indices; emotion labels were assigned by the experimenters based on the requested or perceived expression)",
+  "resolution_or_fps": "Frontal video at 720 x 576 pixels, 24-25 fps (PAL); some parts at different resolutions for added recordings [uncertain]",
+  "train_val_test_split": "No official split. Standard protocol is 10-fold subject-independent cross-validation on the posed subset of approximately 200-250 sequences from ~30 subjects, using the three apex frames per sequence (a setup popularized by Liu et al. 2014 and used in most subsequent CNN-based FER papers). AU-detection works typically use leave-one-subject-out cross-validation.",
+  "demographic_metadata": "Approximately 75 subjects spanning European, Asian, and South American backgrounds, age range roughly 19-62 years, both genders represented but with a male skew. Coverage of African and elderly subjects is limited. Some subjects wear glasses, facial hair, or accessories. [uncertain]",
+  "top_sota_model": "On the standard MMI posed 6-class 10-fold subject-independent protocol, reported accuracies are typically in the 80-90% range. Notable results include IL-CNN / DeepEmotion (~78%), Identity-Aware CNN (IACNN, ~71%), DTAGN (~70%), FN2EN distillation (~82%), MA-Net and DACL-style attention models (~85-88%), and more recent transformer-based methods (POSTER, POSTER++, Former-DFER's static variants) reporting up to ~90%. Exact rankings vary because of differing frame-selection and fold definitions. [uncertain]",
+  "uncertain": [
+    "num_images",
+    "num_subjects",
+    "resolution_or_fps",
+    "demographic_metadata",
+    "top_sota_model"
+  ]
+}

@@ -1,0 +1,318 @@
+topic: Facial Emotion Recognition - SOTA deep learning models and benchmark datasets
+created: 2026-04-28
+time_range: since 2023
+notes: |
+  Items merged from model knowledge + web-search-agent supplement.
+  Web-search agent had no live access in its sub-environment, so supplemented items
+  (especially 2024-2026 entries) should be verified during deep research phase.
+
+execution:
+  batch_size: 3            # parallel agents per round
+  items_per_agent: 2       # items each agent handles
+  output_dir: ./results
+
+items:
+  # ---------- MODELS: Static / Image-based ----------
+  - id: poster_plus_plus
+    name: POSTER++
+    type: model
+    category: static-image
+    note: Pyramid cross-fusion transformer; widely cited static-FER SOTA on RAF-DB and AffectNet.
+
+  - id: emonext
+    name: EmoNeXt
+    type: model
+    category: static-image
+    note: ConvNeXt-based FER architecture.
+
+  - id: dan
+    name: DAN (Distract Your Attention Network)
+    type: model
+    category: static-image
+    note: Multi-head cross-attention to capture multiple expression cues.
+
+  - id: ma_net
+    name: MA-Net (Multi-scale Attention Network)
+    type: model
+    category: static-image
+    note: Global-local attention fusion for FER.
+
+  - id: transfer
+    name: TransFER
+    type: model
+    category: static-image
+    note: Transformer-based model with multi-attention dropping for diversified features.
+
+  - id: apvit
+    name: APViT (Attentive Patches Vision Transformer)
+    type: model
+    category: static-image
+    note: ViT variant with attentive patch selection.
+
+  - id: vtff
+    name: VTFF (Visual Transformers with Feature Fusion)
+    type: model
+    category: static-image
+
+  - id: scn
+    name: SCN (Self-Cure Network)
+    type: model
+    category: static-image
+    note: Suppresses uncertainty/noisy labels (robustness focus).
+
+  - id: ran
+    name: RAN (Region Attention Network)
+    type: model
+    category: static-image
+    note: Robust to occlusion and pose variation.
+
+  - id: eac
+    name: EAC (Erasing Attention Consistency)
+    type: model
+    category: static-image
+    note: Noisy-label-robust learning method.
+
+  - id: ada_df
+    name: Ada-DF
+    type: model
+    category: static-image
+    note: Adaptive deep feature label-distribution learning.
+
+  - id: la_net
+    name: LA-Net (Landmark-Aware Network)
+    type: model
+    category: static-image
+    note: ICCV 2023; landmark-guided attention vs label noise; reported new SOTA on RAF-DB / AffectNet. [verify]
+
+  - id: ddamfn
+    name: DDAMFN (Dual-Direction Attention Mixed Feature Network)
+    type: model
+    category: static-image
+    note: 2023; lightweight, strong on RAF-DB / AffectNet / FERPlus. [verify]
+
+  - id: efficientface
+    name: EfficientFace
+    type: model
+    category: static-image
+    note: Lightweight, mobile-friendly FER baseline.
+
+  - id: swinface
+    name: SwinFace
+    type: model
+    category: static-image
+    note: Swin-Transformer multi-task FER.
+
+  # ---------- MODELS: Vision-Language / Foundation ----------
+  - id: cliper
+    name: CLIPER
+    type: model
+    category: vlm
+    note: CLIP-based vision-language pretraining adapted for FER.
+
+  - id: face2exp
+    name: Face2Exp
+    type: model
+    category: static-image
+    note: Face-recognition pretraining to combat class imbalance in FER.
+
+  - id: farl
+    name: FaRL (Facial Representation Learning)
+    type: model
+    category: foundation-model
+    note: Microsoft general facial encoder; backbone for many 2023-2024 FER methods. [verify]
+
+  - id: emotion_llama
+    name: Emotion-LLaMA
+    type: model
+    category: mllm
+    note: NeurIPS 2024; multimodal LLM (audio+visual) for emotion. SOTA on MER2024/DFEW under MLLM setting. [verify]
+
+  - id: affectgpt
+    name: AffectGPT
+    type: model
+    category: mllm
+    note: Generative emotion explanation; reasoning-based FER. [verify]
+
+  # ---------- MODELS: Dynamic / Video FER ----------
+  - id: mae_dfer
+    name: MAE-DFER
+    type: model
+    category: dynamic-video
+    note: ACM MM 2023; masked autoencoder pretrained on VoxCeleb2. Major leap on DFEW/FERV39k/MAFW. [verify]
+
+  - id: s2d
+    name: S2D (Static-to-Dynamic)
+    type: model
+    category: dynamic-video
+    note: IJCV 2024; adapts strong static FER models into video FER via temporal adapters. [verify]
+
+  - id: dfer_clip
+    name: DFER-CLIP
+    type: model
+    category: dynamic-video
+    note: BMVC 2023; CLIP for dynamic facial expression recognition. [verify]
+
+  - id: finecliper
+    name: FineCLIPER
+    type: model
+    category: dynamic-video
+    note: 2024; aligning text and dynamic facial features; SOTA on DFEW/FERV39k/MAFW. [verify]
+
+  - id: svfap
+    name: SVFAP (Self-supervised Video Facial Affect Perceiver)
+    type: model
+    category: dynamic-video
+    note: TAFFC 2024; self-supervised pretraining for video FER + AU/VA. [verify]
+
+  - id: hicmae
+    name: HiCMAE (Hierarchical Contrastive MAE)
+    type: model
+    category: dynamic-video
+    note: 2024; audio-visual self-supervised pretraining for emotion. [verify]
+
+  # ---------- DATASETS: Static / Image ----------
+  - id: fer2013
+    name: FER-2013
+    type: dataset
+    category: static-image
+    note: Kaggle / ICML 2013; ~35K grayscale 48x48; documented label noise.
+
+  - id: affectnet
+    name: AffectNet
+    type: dataset
+    category: static-image
+    note: ~1M images; 8 categorical + valence/arousal.
+
+  - id: raf_db
+    name: RAF-DB (Real-world Affective Faces Database)
+    type: dataset
+    category: static-image
+    note: ~30K in-the-wild images; basic + compound subset (RAF-ML).
+
+  - id: ck_plus
+    name: CK+ (Extended Cohn-Kanade)
+    type: dataset
+    category: static-image
+    note: Lab-controlled; 593 sequences.
+
+  - id: jaffe
+    name: JAFFE
+    type: dataset
+    category: static-image
+    note: 213 lab images, 10 Japanese subjects.
+
+  - id: sfew2
+    name: SFEW 2.0
+    type: dataset
+    category: static-image
+    note: Static frames from movies (subset of AFEW).
+
+  - id: emotionet
+    name: EmotioNet
+    type: dataset
+    category: static-image
+    note: ~1M images with AU + categorical labels.
+
+  - id: expw
+    name: ExpW (Expression in-the-Wild)
+    type: dataset
+    category: static-image
+    note: ~91K web images.
+
+  - id: oulu_casia
+    name: Oulu-CASIA
+    type: dataset
+    category: static-image
+    note: Lab-controlled NIR + visible.
+
+  - id: mmi
+    name: MMI Database
+    type: dataset
+    category: static-image
+    note: Lab; posed + spontaneous.
+
+  - id: bu3dfe
+    name: BU-3DFE / BU-4DFE
+    type: dataset
+    category: 3d
+    note: 3D static / 4D dynamic.
+
+  - id: emoset
+    name: EmoSet
+    type: dataset
+    category: affective-image
+    note: ICCV 2023; 3.3M images; visual emotion analysis (broader than face). [verify]
+
+  # ---------- DATASETS: Dynamic / Video ----------
+  - id: aff_wild2
+    name: Aff-Wild2
+    type: dataset
+    category: dynamic-video
+    note: Video; valence-arousal + 8 expressions + AUs. ABAW Challenge series.
+
+  - id: dfew
+    name: DFEW (Dynamic Facial Expression in the Wild)
+    type: dataset
+    category: dynamic-video
+    note: ~16K video clips.
+
+  - id: ferv39k
+    name: FERV39k
+    type: dataset
+    category: dynamic-video
+    note: ~39K video clips; large-scale dynamic.
+
+  - id: mafw
+    name: MAFW
+    type: dataset
+    category: dynamic-video
+    note: ICME 2022 / TPAMI 2023; 10,045 clips; 11 single + 32 compound expressions + captions. [verify]
+
+  - id: mead
+    name: MEAD
+    type: dataset
+    category: audio-visual
+    note: 60 actors; multi-view + audio.
+
+  - id: caer_s
+    name: CAER-S
+    type: dataset
+    category: dynamic-video
+    note: Context-aware static (CAER also has video version).
+
+  - id: afew
+    name: AFEW
+    type: dataset
+    category: dynamic-video
+    note: Acted Facial Expressions in the Wild.
+
+  - id: c_expr_db
+    name: C-EXPR-DB
+    type: dataset
+    category: dynamic-video
+    note: ABAW6, 2024; compound expression in-the-wild benchmark. [verify]
+
+  # ---------- DATASETS: Action Units / Specialized ----------
+  - id: bp4d
+    name: BP4D / BP4D+
+    type: dataset
+    category: au
+    note: 3D + 2D spontaneous AU dataset (Binghamton); standard AU benchmark.
+
+  - id: disfa
+    name: DISFA / DISFA+
+    type: dataset
+    category: au
+    note: AU intensity benchmark.
+
+  - id: casme3
+    name: CAS(ME)^3
+    type: dataset
+    category: micro-expression
+    note: TPAMI 2023; largest spontaneous micro/macro expression dataset. [verify]
+
+  - id: emotic
+    name: EMOTIC
+    type: dataset
+    category: context-emotion
+    note: People-in-scene, 26 fine-grained categories.

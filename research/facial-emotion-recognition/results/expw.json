@@ -1,0 +1,30 @@
+{
+  "name": "ExpW (Expression in-the-Wild)",
+  "type": "dataset",
+  "subcategory": "static-image",
+  "release_year": 2018,
+  "authors_or_creators": "Zhanpeng Zhang, Ping Luo, Chen Change Loy, Xiaoou Tang (Multimedia Laboratory, The Chinese University of Hong Kong - CUHK)",
+  "paper_link": "https://link.springer.com/article/10.1007/s11263-017-1055-1 (DOI: 10.1007/s11263-017-1055-1); arXiv:1511.03447 (earlier version 'Learning Social Relation Traits from Face Images')",
+  "publication_venue": "International Journal of Computer Vision (IJCV) 2018; earlier ICCV 2015 (related work on social relation traits)",
+  "num_images": "91,793 face images",
+  "num_subjects": "unknown (web-crawled, identities not annotated) [uncertain]",
+  "num_classes": 7,
+  "label_taxonomy": "basic-7 (angry, disgust, fear, happy, sad, surprise, neutral)",
+  "in_the_wild_or_lab": "in-the-wild (web-crawled images)",
+  "license": "research-only (request access from CUHK MMLAB) [uncertain]",
+  "download_url": "https://mmlab.ie.cuhk.edu.hk/projects/socialrelation/index.html (CUHK MMLAB project page)",
+  "known_issues": "Labels were assigned via crowdsourced majority vote among annotators, which introduces label noise especially for ambiguous expressions (fear/disgust often confused). Class imbalance is significant: 'happy' and 'neutral' classes dominate while 'disgust' and 'fear' are heavily underrepresented. Web-crawl source introduces demographic biases. No official train/val/test split is provided, so cross-paper comparisons can be inconsistent. Some images contain multiple faces; the released bounding boxes are needed to extract individual face crops. Released alongside social relation work, so primary curation focus was social context not pure expression balance.",
+  "modality": "image",
+  "annotation_method": "crowdsourced (majority vote among multiple annotators)",
+  "resolution_or_fps": "variable (web-crawled images of varying resolution; face bounding boxes provided) [uncertain]",
+  "train_val_test_split": "No official standard split released by authors; researchers commonly use random 80/10/10 or 75/12.5/12.5 splits, leading to inconsistent benchmarking across papers [uncertain]",
+  "demographic_metadata": "No official demographic metadata provided; web-crawled images contain a mix of ages, genders, and ethnicities but with no documented balancing. Often used for crowd-emotion analysis where multiple faces per image are common.",
+  "top_sota_model": "Reported accuracies vary widely due to non-standard splits; methods such as IPA2LT, RAN, and recent transformer-based FER models report ~70-75% accuracy on ExpW; not a primary leaderboard dataset, results often reported as cross-dataset evaluation [uncertain]",
+  "uncertain": [
+    "num_subjects",
+    "license",
+    "resolution_or_fps",
+    "train_val_test_split",
+    "top_sota_model"
+  ]
+}

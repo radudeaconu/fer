@@ -1,0 +1,28 @@
+{
+  "name": "JAFFE (Japanese Female Facial Expression)",
+  "type": "dataset",
+  "subcategory": "static-image",
+  "release_year": 1998,
+  "authors_or_creators": "Michael J. Lyons, Shigeru Akamatsu, Miyuki Kamachi, Jiro Gyoba — ATR (Advanced Telecommunications Research Institute) / Kyushu University, Japan",
+  "paper_link": "https://doi.org/10.1109/AFGR.1998.670949",
+  "publication_venue": "IEEE International Conference on Automatic Face and Gesture Recognition (FG 1998) — 'Coding Facial Expressions with Gabor Wavelets'",
+  "num_images": 213,
+  "num_subjects": 10,
+  "num_classes": 7,
+  "label_taxonomy": "basic-7 (anger, disgust, fear, happiness, sadness, surprise, neutral). Each image is additionally rated by 60 Japanese subjects on 6 emotion adjectives (semantic ratings on a 5-point scale).",
+  "in_the_wild_or_lab": "lab-controlled",
+  "license": "Research-only. Free for non-commercial academic use; redistribution prohibited. Access requires a signed agreement / request via the Zenodo archive (the original web distribution was closed in 2018 and replaced by a controlled-release archive). [uncertain]",
+  "download_url": "https://zenodo.org/record/3451524 (current controlled-release archive maintained by Michael Lyons); historical site http://www.kasrl.org/jaffe.html (deprecated)",
+  "known_issues": "Severe demographic bias: only 10 subjects, all young adult Japanese females, photographed in a single lab session under controlled frontal lighting — extremely limited diversity in age, gender, ethnicity, pose, illumination, and background. Tiny size (213 images) makes deep-learning evaluation prone to overfitting and unstable cross-validation results. Expressions are posed (not spontaneous), so models trained or evaluated on JAFFE do not generalize to in-the-wild settings. The original distribution site was withdrawn in 2018 amid concerns over uncontrolled redistribution and use beyond the original research purpose; subsequent re-release imposes stricter access terms. Per-image semantic ratings show that many images are mixtures of emotions rather than pure prototypes, so single-label accuracy can be misleading.",
+  "modality": "image",
+  "annotation_method": "expert (posed expressions directed by experimenters) + crowdsourced semantic ratings (60 Japanese university student raters per image on 6 emotion adjectives)",
+  "resolution_or_fps": "256 x 256 grayscale TIFF",
+  "train_val_test_split": "No official split. Standard practice in literature is leave-one-subject-out (10-fold subject-independent) cross-validation, or 10-fold random cross-validation. [uncertain]",
+  "demographic_metadata": "10 Japanese female subjects (university-aged adults). 0% male, 0% non-Japanese, narrow age band. No annotated age/ethnicity metadata beyond the subject identity.",
+  "top_sota_model": "Reported accuracies are saturated near ~99-100% under 10-fold CV with deep CNNs (e.g., VGG/ResNet variants, attention-CNNs). Numbers vary widely by protocol; due to the dataset's tiny size, JAFFE is no longer considered a meaningful SOTA benchmark. [uncertain]",
+  "uncertain": [
+    "license",
+    "train_val_test_split",
+    "top_sota_model"
+  ]
+}

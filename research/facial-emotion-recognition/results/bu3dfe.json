@@ -1,0 +1,28 @@
+{
+  "name": "BU-3DFE / BU-4DFE",
+  "type": "dataset",
+  "subcategory": "3d / 4d (dynamic 3d video)",
+  "release_year": "BU-3DFE: 2006; BU-4DFE: 2008",
+  "authors_or_creators": "Lijun Yin, Xiaozhou Wei, Yi Sun, Jun Wang, Matthew J. Rosato (BU-3DFE); Lijun Yin, Xiaochen Chen, Yi Sun, Tony Worm, Michael Reale (BU-4DFE). Department of Computer Science, State University of New York at Binghamton (Binghamton University).",
+  "paper_link": "BU-3DFE: https://ieeexplore.ieee.org/document/1613022 (FG 2006); BU-4DFE: https://ieeexplore.ieee.org/document/4813324 (FG 2008)",
+  "publication_venue": "IEEE International Conference on Automatic Face and Gesture Recognition (FG) 2006 and 2008",
+  "num_images": "BU-3DFE: 2,500 static 3D face scans (100 subjects x 6 expressions x 4 intensity levels + neutral); BU-4DFE: ~606 dynamic 3D sequences yielding ~60,600 3D meshes (101 subjects x 6 expressions, ~100 frames per sequence at 25 fps for ~4 seconds).",
+  "num_subjects": "BU-3DFE: 100 subjects (56 female, 44 male); BU-4DFE: 101 subjects (58 female, 43 male)",
+  "num_classes": 7,
+  "label_taxonomy": "basic-7 (Ekman's six basic emotions: anger, disgust, fear, happiness, sadness, surprise — plus neutral). BU-3DFE additionally encodes 4 intensity levels (low, middle, high, highest) per expression.",
+  "in_the_wild_or_lab": "lab-controlled",
+  "license": "research-only EULA (academic / non-commercial use). Requires signed license agreement with Binghamton University.",
+  "download_url": "https://www.cs.binghamton.edu/~lijun/Research/3DFE/3DFE_Analysis.html (request form via Binghamton University CS department)",
+  "known_issues": "Lab-controlled acquisition with posed (non-spontaneous) expressions limits generalization to in-the-wild affect. BU-4DFE sequences begin and end at neutral with the apex in the middle, so onset/apex/offset must be inferred. Subjects were instructed to perform expressions, raising concerns about ecological validity vs. spontaneous emotion. The 3D scan resolution and mesh density vary across subjects; some occlusions and missing data exist around hair, ears, and mouth interiors. Demographic distribution is skewed toward young adults (largely undergraduates) and although ethnically diverse for its era, the absolute counts per group are small. Distribution under EULA prohibits redistribution, complicating reproducibility. No intensity annotation in BU-4DFE.",
+  "modality": "3d (BU-3DFE: static 3D meshes + paired frontal/side 2D textures); 4d (BU-4DFE: temporal sequences of 3D meshes with synchronized 2D video texture)",
+  "annotation_method": "expert / self-report (acted expressions performed by subjects under guidance; expression categories assigned by acquisition protocol; intensity ratings validated by Binghamton researchers)",
+  "resolution_or_fps": "BU-3DFE: ~1,300 polygons per face mesh range, paired texture images ~1,040x1,329 px (varies); BU-4DFE: 3D meshes captured at 25 fps with ~35,000 vertices per frame; texture video at 1,040x1,329 px, 25 fps.",
+  "train_val_test_split": "No official split. Common protocol: 10-fold subject-independent cross-validation on the 100 (BU-3DFE) or 101 (BU-4DFE) subjects, often using the two highest intensity levels for BU-3DFE.",
+  "demographic_metadata": "BU-3DFE: 100 subjects ages 18-70, 56% female / 44% male; ethnicities include White (51), Black (8), East-Asian (24), Middle-Eastern (3), Hispanic-Latino (3), Indian (11). BU-4DFE: 101 subjects ages 18-45, 58 female / 43 male; mixed ethnicities (Asian, Black, Hispanic-Latino, White). Skew toward young adults; small absolute counts in non-White groups limit demographic-fair evaluation.",
+  "top_sota_model": "On BU-3DFE (subject-independent, highest 2 intensities, 6-class): methods such as Deep 3D-CNN approaches and geometric+texture fusion report ~88-90% accuracy; e.g., Li et al. (Deep Fusion of Geometric/Photometric features) ~89%. On BU-4DFE: dynamic 4D approaches (e.g., Bejaoui et al., spatiotemporal 4D-CNNs) report ~95-99% on subject-independent 6-class protocols. [uncertain]",
+  "uncertain": [
+    "top_sota_model",
+    "exact resolution_or_fps figures (mesh vertex counts and texture resolutions vary across releases)",
+    "BU-4DFE total frame count (commonly cited as ~60K but exact figure depends on per-sequence frame count)"
+  ]
+}

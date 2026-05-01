@@ -1,0 +1,30 @@
+{
+  "name": "CAER-S (Context-Aware Emotion Recognition - Static)",
+  "type": "dataset",
+  "subcategory": "static-image (context-aware FER; derived from CAER dynamic-video dataset)",
+  "release_year": 2019,
+  "authors_or_creators": "Jiyoung Lee, Seungryong Kim, Sunok Kim, Jungin Park, Kwanghoon Sohn. Yonsei University.",
+  "paper_link": "https://arxiv.org/abs/1908.05913",
+  "publication_venue": "ICCV 2019",
+  "num_images": 70000,
+  "num_subjects": "[uncertain] (large number of distinct identities harvested from TV shows; not explicitly enumerated by the authors)",
+  "num_classes": 7,
+  "label_taxonomy": "basic-7 (anger, disgust, fear, happiness, sadness, surprise, neutral)",
+  "in_the_wild_or_lab": "in-the-wild (frames sampled from 79 TV shows)",
+  "license": "research-only (academic use; available via the project page) [uncertain on exact license text]",
+  "download_url": "https://caer-dataset.github.io/",
+  "known_issues": "Labels are derived from clip-level emotion tags (originally based on TV-show context and crowd verification), so static frames may not always show the peak expression at the moment captured, leading to label noise. Source material (TV shows) introduces selection bias toward dramatized / acted emotion and Western/Korean media demographics. Class distribution is imbalanced (neutral and happy dominate). Some images contain multiple people, but only one face per image is the labeled subject, which can confuse context-aware models. Privacy/consent concerns are typical of TV-show-derived datasets. The number of frames is sometimes reported differently across papers (~70k total in the static set; the ~13,201 figure cited in the user note corresponds to the test split or a specific subset rather than the full CAER-S).",
+  "modality": "image",
+  "annotation_method": "crowdsourced (Amazon Mechanical Turk verification of emotion labels on the parent CAER video clips, propagated to extracted static frames)",
+  "resolution_or_fps": "Variable; frames extracted from HD TV-show video (typically up to 1280x720 source) with face crops at lower resolution. [uncertain on exact average resolution]",
+  "train_val_test_split": "Official split into train / validation / test, approximately 70% / 10% / 20% (subject-independent at the show/clip level). Reported counts: ~44,996 train, ~7,131 val, ~13,201 test (test count matches the ~13,201 figure in the user note). [uncertain on exact counts]",
+  "demographic_metadata": "Sourced from 79 TV shows (mostly North American and some Korean productions per the parent CAER paper); skews toward adult actors, with limited explicit annotation of age / gender / ethnicity. Western/East-Asian media bias.",
+  "top_sota_model": "GLAMOR-Net and follow-ups (e.g., context-aware transformer methods) report ~77-89% accuracy on CAER-S; CAER-Net (the original baseline) reported ~73.5% accuracy. [uncertain on current SOTA - leaderboard not actively maintained]",
+  "uncertain": [
+    "num_subjects",
+    "license (exact terms)",
+    "resolution_or_fps",
+    "train_val_test_split (exact counts)",
+    "top_sota_model (current best)"
+  ]
+}
