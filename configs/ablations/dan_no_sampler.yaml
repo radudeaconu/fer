@@ -1,0 +1,36 @@
+# Ablation: DAN on FER-2013 WITHOUT class-weighted sampling.
+# Tests whether the inverse-frequency sampler actually helps on FER-2013's
+# 13× Disgust-vs-Happy imbalance (report.md:1928). Comparison baseline:
+# configs/dan_fer2013.yaml (same hyperparams, sampler ON).
+# Run: python -m src.train --config configs/ablations/dan_no_sampler.yaml
+
+experiment_name: dan_fer2013_no_sampler
+
+model:
+  name: dan
+  num_classes: 7
+  pretrained_ckpt: null
+
+data:
+  dataset: fer2013
+  root: data/fer2013
+  image_size: 224
+  num_workers: 2
+  use_class_weighted_sampler: false   # <-- ablation knob
+  augment: true
+
+train:
+  batch_size: 64
+  epochs: 10                          # short ablation run
+  optimizer: adamw
+  lr: 3.0e-4
+  weight_decay: 1.0e-4
+  label_smoothing: 0.1
+  scheduler: cosine
+  warmup_epochs: 1
+  amp: true
+  grad_clip: 1.0
+  seed: 42
+
+eval:
+  batch_size: 128

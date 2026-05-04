@@ -1,0 +1,36 @@
+# Ablation: DAN on FER-2013 WITHOUT data augmentation.
+# Tests the contribution of RandAugment + ColorJitter + RandomErasing + RandomResizedCrop.
+# When augment: false, the train transform falls through to the eval pipeline
+# (deterministic Resize -> CenterCrop -> Normalize) — see src/data.py::build_transforms.
+# Run: python -m src.train --config configs/ablations/dan_no_augment.yaml
+
+experiment_name: dan_fer2013_no_augment
+
+model:
+  name: dan
+  num_classes: 7
+  pretrained_ckpt: null
+
+data:
+  dataset: fer2013
+  root: data/fer2013
+  image_size: 224
+  num_workers: 2
+  use_class_weighted_sampler: true
+  augment: false                      # <-- ablation knob
+
+train:
+  batch_size: 64
+  epochs: 10
+  optimizer: adamw
+  lr: 3.0e-4
+  weight_decay: 1.0e-4
+  label_smoothing: 0.1
+  scheduler: cosine
+  warmup_epochs: 1
+  amp: true
+  grad_clip: 1.0
+  seed: 42
+
+eval:
+  batch_size: 128

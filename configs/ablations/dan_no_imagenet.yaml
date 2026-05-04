@@ -1,0 +1,36 @@
+# Ablation: DAN on FER-2013 WITHOUT ImageNet backbone init.
+# The backbone (ResNet-18) is left at random init — quantifies the contribution
+# of transfer learning from ImageNet. Expect a large drop (5-10 pt WAR).
+# Run: python -m src.train --config configs/ablations/dan_no_imagenet.yaml
+
+experiment_name: dan_fer2013_no_imagenet
+
+model:
+  name: dan
+  num_classes: 7
+  pretrained_ckpt: null
+  use_imagenet_init: false            # <-- ablation knob (consumed by build_dan)
+
+data:
+  dataset: fer2013
+  root: data/fer2013
+  image_size: 224
+  num_workers: 2
+  use_class_weighted_sampler: true
+  augment: true
+
+train:
+  batch_size: 64
+  epochs: 10
+  optimizer: adamw
+  lr: 3.0e-4
+  weight_decay: 1.0e-4
+  label_smoothing: 0.1
+  scheduler: cosine
+  warmup_epochs: 1
+  amp: true
+  grad_clip: 1.0
+  seed: 42
+
+eval:
+  batch_size: 128
