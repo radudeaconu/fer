@@ -106,3 +106,22 @@ def test_collect_predictions_returns_arrays(synthetic_loader: DataLoader) -> Non
     assert pred.shape == true.shape
     assert pred.dtype.kind == "i"  # integer class indices
     assert (pred >= 0).all() and (pred < NUM_CLASSES).all()
+
+
+def test_convnext_builds_and_forwards() -> None:
+    """ConvNeXt-Tiny: torchvision ImageNet weights, FC swapped to 7 classes, returns Tensor logits."""
+    from src.models import build_convnext_tiny, build_model
+
+    m = build_convnext_tiny(num_classes=NUM_CLASSES)
+    n_params = sum(p.numel() for p in m.parameters())
+    assert 27_000_000 < n_params < 29_000_000, f"unexpected ConvNeXt-Tiny size: {n_params:,}"
+
+    m.eval()
+    with torch.no_grad():
+        out = m(torch.randn(2, 3, 224, 224))
+    assert out.shape == (2, NUM_CLASSES)
+    assert isinstance(out, torch.Tensor)
+
+    # Registry path stays in sync.
+    m2 = build_model("convnext_tiny")
+    assert sum(p.numel() for p in m2.parameters()) == n_params
