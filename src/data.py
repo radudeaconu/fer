@@ -89,15 +89,20 @@ class RAFDBDataset(_ManifestDataset):
     """
 
 
-def build_transforms(train: bool, image_size: int = 224) -> Callable:
+def build_transforms(train: bool, image_size: int = 224, augment: bool = True) -> Callable:
     """Standard FER preprocessing pipeline.
 
     Train: RandomResizedCrop, HorizontalFlip, RandAugment(light), ColorJitter, Normalize.
     Eval:  Resize -> CenterCrop -> Normalize.
+
+    The `augment` flag exists for the no-augmentation ablation: when `train=True` and
+    `augment=False`, falls through to the eval pipeline (deterministic resize+crop+normalize)
+    so the only thing changing across the ablation runs is the augmentation policy.
+
     Normalization uses ImageNet statistics to match the MS-Celeb-1M-pretrained
     backbones used by DAN and POSTER++ (report.md:278, 933).
     """
-    if train:
+    if train and augment:
         return transforms.Compose([
             transforms.Resize(int(image_size * 1.15)),
             transforms.RandomResizedCrop(image_size, scale=(0.8, 1.0)),
