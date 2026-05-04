@@ -3,6 +3,10 @@
 Rolling log of every code modification. Format: `- <file>: <what> — <why>` under a daily heading.
 See `CLAUDE.md` Rule 1 for the contract.
 
+## 2026-05-05
+
+- `configs/dan_fer2013.yaml`: Restored to 48h-mode — `epochs: 15 → 30` and `warmup_epochs: 1 → 2`. The 24h-mode halving from May 1 was a fallback for a tighter budget; the 48h sprint plan (Phase 0 step 2) calls for the full 30-epoch run for better final WAR/UAR numbers. Comment updated to flip the 24h/48h guidance.
+
 ## 2026-05-04
 
 - `src/models.py` (`build_convnext_tiny`): Added ConvNeXt-Tiny wrapper as the "modern CNN" stretch model for the 48h-sprint comparison vs DAN. Uses `torchvision.models.convnext_tiny` with `IMAGENET1K_V1` weights, swaps `classifier[2]` (Linear 768→1000) for `Linear(768, num_classes)`. Registered in `MODEL_REGISTRY` as `"convnext_tiny"`. Smoke-tested locally: 27.8M params, forward `[2,3,224,224]` → `Tensor[2,7]`. Hooks to `report.md:488` (EmoNeXt's backbone family).
