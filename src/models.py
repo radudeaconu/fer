@@ -119,9 +119,48 @@ def build_poster_pp(
     return model
 
 
+def build_convnext_tiny(
+    num_classes: int = NUM_CLASSES,
+    pretrained_ckpt: str | Path | None = None,
+) -> nn.Module:
+    """Construct ConvNeXt-Tiny with ImageNet init. Backbone of EmoNeXt — report.md:488.
+
+    Modern CNN baseline (Liu et al., 2022) intended as the "stretch" comparison vs DAN's
+    ResNet-18 + multi-head attention. ImageNet weights are pulled from torchvision; the
+    final 1000-way classifier is replaced with a 7-way Linear over the same 768-D feature.
+
+    Args:
+        num_classes: target classes (7 for FER-2013 / RAF-DB).
+        pretrained_ckpt: optional path to a fine-tuned checkpoint to resume from.
+    """
+    from torchvision import models as tv_models
+    from torchvision.models import ConvNeXt_Tiny_Weights
+
+    model = tv_models.convnext_tiny(weights=ConvNeXt_Tiny_Weights.IMAGENET1K_V1)
+    # ConvNeXt's classifier is Sequential(LayerNorm2d, Flatten, Linear(768, 1000)).
+    in_features = model.classifier[2].in_features
+    model.classifier[2] = nn.Linear(in_features, num_classes)
+
+    if pretrained_ckpt is not None:
+        ckpt_path = Path(pretrained_ckpt)
+        if not ckpt_path.exists():
+            raise FileNotFoundError(f"ConvNeXt checkpoint not found: {ckpt_path}")
+        state = torch.load(ckpt_path, map_location="cpu", weights_only=False)
+        sd = state.get("model", state.get("model_state_dict", state.get("state_dict", state)))
+        sd = {k.removeprefix("module."): v for k, v in sd.items()}
+        missing, unexpected = model.load_state_dict(sd, strict=False)
+        if unexpected:
+            print(f"[build_convnext_tiny] unexpected keys: {unexpected[:3]}{'...' if len(unexpected) > 3 else ''}")
+        if missing:
+            print(f"[build_convnext_tiny] missing keys: {missing[:3]}{'...' if len(missing) > 3 else ''}")
+
+    return model
+
+
 MODEL_REGISTRY = {
     "dan": build_dan,
     "poster_pp": build_poster_pp,
+    "convnext_tiny": build_convnext_tiny,
 }
 
 
