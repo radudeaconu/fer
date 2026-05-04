@@ -2,7 +2,7 @@
 
 Exact copy-paste cells for a fresh Colab T4. Assumes:
 - Private repo at `github.com/radudeaconu/fer`.
-- A fine-grained PAT named `GH_TOKEN` in Colab Secrets (sidebar → key icon).
+- A fine-grained PAT named `GH_TOKEN` in Colab Secrets (sidebar → key icon → **toggle "Notebook access" ON**). Create the PAT at https://github.com/settings/personal-access-tokens/new with **Contents: Read and write** on `radudeaconu/fer`. If the secret is missing, the bootstrap falls back to a one-shot `getpass` prompt.
 - `fer2013.csv` (or `.zip`) on Drive at `/MyDrive/fer-data/`.
 
 ## How persistence works
@@ -152,6 +152,7 @@ python -m app.gradio_app
 - **TTA gives identical numbers to no-TTA** — the TenCrop transform isn't being applied; check that `--tta` is actually present in the command.
 - **Disconnect mid-train** — re-run §0 in the new runtime; resume with `--resume runs/<exp>/last.pth`.
 - **`gh: command not found` on Colab** — you don't need gh on Colab; the bootstrap clones via `GH_TOKEN`.
+- **`SecretNotFoundError: Secret GH_TOKEN does not exist`** — open the key icon in the left sidebar, **Add new secret** named `GH_TOKEN` with your PAT as the value, and toggle **Notebook access ON**. Or just paste the token into the `getpass` prompt the bootstrap shows.
 - **`[bootstrap] WARNING: no archive at .../fer2013_prepared.tar.gz`** — you haven't run `01_colab_setup.ipynb` yet. Open it and Run All; subsequent notebooks will hydrate automatically.
 - **`runs/` is empty in `04_analysis.ipynb` even though I trained earlier** — confirm `readlink runs` points to `/content/drive/MyDrive/fer-workspace/runs/`. If not, the bootstrap was skipped — re-run §0.
 
