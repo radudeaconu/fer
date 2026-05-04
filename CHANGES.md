@@ -5,6 +5,8 @@ See `CLAUDE.md` Rule 1 for the contract.
 
 ## 2026-05-05
 
+- `report/skeleton.md`: Course report skeleton with section structure, results-table placeholders, ablation-table placeholders, figure checklist, and citation hooks back to `research/.../report.md` line numbers. Lets the user fill in numbers as Colab runs complete instead of staring at a blank doc.
+- `COLAB.md`: Copy-pasteable cheatsheet for the 48h sprint — exact cells for clone+install, data prep, DAN train, ConvNeXt train, single-crop eval, TTA eval, ensemble, three ablations, Drive persistence, and figure commit. Reduces the "what command do I run next" friction during compute work.
 - `configs/dan_fer2013.yaml`: Restored to 48h-mode — `epochs: 15 → 30` and `warmup_epochs: 1 → 2`. The 24h-mode halving from May 1 was a fallback for a tighter budget; the 48h sprint plan (Phase 0 step 2) calls for the full 30-epoch run for better final WAR/UAR numbers. Comment updated to flip the 24h/48h guidance.
 
 ## 2026-05-04
