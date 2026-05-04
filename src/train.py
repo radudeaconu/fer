@@ -66,7 +66,12 @@ def make_dataloaders(cfg: dict) -> tuple[DataLoader, DataLoader, list[int]]:
     image_size = ds_cfg["image_size"]
     num_workers = ds_cfg["num_workers"]
 
-    train_ds = Cls(ds_cfg["root"], split="train", transform=build_transforms(train=True, image_size=image_size))
+    augment = ds_cfg.get("augment", True)
+    train_ds = Cls(
+        ds_cfg["root"],
+        split="train",
+        transform=build_transforms(train=True, image_size=image_size, augment=augment),
+    )
     # FER-2013 has a separate val split; RAF-DB uses test as val (no official val).
     val_split = "val" if ds_cfg["dataset"] == "fer2013" else "test"
     val_ds = Cls(ds_cfg["root"], split=val_split, transform=build_transforms(train=False, image_size=image_size))
@@ -218,10 +223,15 @@ def main(cfg_path: Path, resume: Path | None = None) -> None:
     log_path = run_dir / "log.jsonl"
 
     train_loader, val_loader, _ = make_dataloaders(cfg)
+    # Forward any non-core keys from the model config block as model_kwargs
+    # (e.g. use_imagenet_init=False for the DAN no-imagenet ablation).
+    core_keys = {"name", "num_classes", "pretrained_ckpt"}
+    model_kwargs = {k: v for k, v in cfg["model"].items() if k not in core_keys}
     model = build_model(
         cfg["model"]["name"],
         num_classes=cfg["model"]["num_classes"],
         pretrained_ckpt=cfg["model"].get("pretrained_ckpt"),
+        **model_kwargs,
     ).to(device)
     optimizer = make_optimizer(model, cfg)
     scheduler = make_scheduler(optimizer, cfg, steps_per_epoch=len(train_loader))
