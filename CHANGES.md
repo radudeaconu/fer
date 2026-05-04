@@ -8,6 +8,7 @@ See `CLAUDE.md` Rule 1 for the contract.
 - `src/models.py` (`build_convnext_tiny`): Added ConvNeXt-Tiny wrapper as the "modern CNN" stretch model for the 48h-sprint comparison vs DAN. Uses `torchvision.models.convnext_tiny` with `IMAGENET1K_V1` weights, swaps `classifier[2]` (Linear 768→1000) for `Linear(768, num_classes)`. Registered in `MODEL_REGISTRY` as `"convnext_tiny"`. Smoke-tested locally: 27.8M params, forward `[2,3,224,224]` → `Tensor[2,7]`. Hooks to `report.md:488` (EmoNeXt's backbone family).
 - `configs/convnext_fer2013.yaml`: ConvNeXt-Tiny training config with lr=1e-4 (lower than DAN's 3e-4 because the ImageNet head is more delicate), weight_decay=5e-2 (ConvNeXt paper default), 30 epochs, AMP, class-weighted sampler ON. Same image_size=224 and seed=42 as DAN config so the two runs are directly comparable.
 - `tests/test_train_eval.py` (`test_convnext_builds_and_forwards`): Pytest smoke asserting ConvNeXt builds with ~28M params, returns a `Tensor` (not a tuple, unlike DAN), and goes through the registry. Suite stays at 11/11 green.
+- `notebooks/05_train_convnext.ipynb`: Training driver for ConvNeXt-Tiny. Slimmer than `02_train_dan.ipynb` because no third-party repo is needed (torchvision provides ConvNeXt + ImageNet weights). Includes a head-to-head metrics-comparison cell that reads both `runs/dan_fer2013/eval/metrics.json` and `runs/convnext_fer2013/eval/metrics.json` and prints a 2-row pandas table.
 
 ## 2026-05-01
 
