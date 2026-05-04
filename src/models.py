@@ -40,13 +40,20 @@ def _ensure_third_party_on_path(name: str) -> Path:
     return repo_dir
 
 
-def build_dan(num_classes: int = NUM_CLASSES, pretrained_ckpt: str | Path | None = None) -> nn.Module:
+def build_dan(
+    num_classes: int = NUM_CLASSES,
+    pretrained_ckpt: str | Path | None = None,
+    use_imagenet_init: bool = True,
+) -> nn.Module:
     """Construct DAN (ResNet-18 backbone with multi-head attention) — report.md:252.
 
     Args:
         num_classes: target classes for the final FC. RAF-DB and FER-2013 both use 7.
         pretrained_ckpt: path to a trained DAN checkpoint (e.g., released RAF-DB ckpt).
-            If None, backbone is initialized with torchvision ImageNet ResNet-18 weights.
+            Takes precedence over `use_imagenet_init`.
+        use_imagenet_init: when True (default), load torchvision ImageNet ResNet-18 weights
+            into the backbone. Set False for the random-init ablation that quantifies
+            the contribution of transfer learning.
 
     Note: DAN's __init__ with pretrained=True hard-codes a load of
     `./models/resnet18_msceleb.pth` (MS-Celeb-1M backbone). We don't ship that file;
@@ -60,6 +67,8 @@ def build_dan(num_classes: int = NUM_CLASSES, pretrained_ckpt: str | Path | None
     model = DAN(num_class=num_classes, num_head=4, pretrained=False)
 
     if pretrained_ckpt is None:
+        if not use_imagenet_init:
+            return model  # leave the random init from DAN's __init__
         from torchvision import models as tv_models
         from torchvision.models import ResNet18_Weights
         imagenet_rn18 = tv_models.resnet18(weights=ResNet18_Weights.IMAGENET1K_V1)
@@ -164,7 +173,19 @@ MODEL_REGISTRY = {
 }
 
 
-def build_model(name: str, num_classes: int = NUM_CLASSES, pretrained_ckpt: str | Path | None = None) -> nn.Module:
+def build_model(
+    name: str,
+    num_classes: int = NUM_CLASSES,
+    pretrained_ckpt: str | Path | None = None,
+    **kwargs,
+) -> nn.Module:
+    """Dispatch to a model constructor.
+
+    Extra kwargs are forwarded to the constructor — e.g. `use_imagenet_init=False`
+    for the DAN no-imagenet ablation. Constructors silently ignore unknown kwargs
+    via the per-builder signatures (callers are expected to pass only the
+    constructor's documented kwargs).
+    """
     if name not in MODEL_REGISTRY:
         raise ValueError(f"Unknown model {name!r}. Available: {sorted(MODEL_REGISTRY)}")
-    return MODEL_REGISTRY[name](num_classes=num_classes, pretrained_ckpt=pretrained_ckpt)
+    return MODEL_REGISTRY[name](num_classes=num_classes, pretrained_ckpt=pretrained_ckpt, **kwargs)
