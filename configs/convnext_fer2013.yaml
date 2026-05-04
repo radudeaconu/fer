@@ -1,0 +1,32 @@
+# ConvNeXt-Tiny stretch model on FER-2013. report.md:488 (EmoNeXt backbone).
+# Run: python -m src.train --config configs/convnext_fer2013.yaml
+
+experiment_name: convnext_fer2013
+
+model:
+  name: convnext_tiny
+  num_classes: 7
+  pretrained_ckpt: null  # ImageNet init from torchvision (no fine-tuned ckpt to start from)
+
+data:
+  dataset: fer2013
+  root: data/fer2013
+  image_size: 224
+  num_workers: 2
+  use_class_weighted_sampler: true  # severe imbalance per report.md:1928
+
+train:
+  batch_size: 64           # ConvNeXt-Tiny @ 224 fits T4 with AMP at this size
+  epochs: 30
+  optimizer: adamw
+  lr: 1.0e-4               # smaller than DAN's 3e-4 — ConvNeXt's pretrained head is more delicate
+  weight_decay: 5.0e-2     # ConvNeXt paper default
+  label_smoothing: 0.1
+  scheduler: cosine
+  warmup_epochs: 2
+  amp: true
+  grad_clip: 1.0
+  seed: 42
+
+eval:
+  batch_size: 128
