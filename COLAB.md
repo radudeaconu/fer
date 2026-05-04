@@ -1,32 +1,47 @@
 # Colab Cheatsheet — FER 48h Sprint
 
-Exact copy-paste cells for a fresh Colab T4. Assumes the repo is private at `github.com/radudeaconu/fer` and FER-2013 (`fer2013.csv` or `fer2013.zip`) is on Google Drive at `/MyDrive/datasets/`.
+Exact copy-paste cells for a fresh Colab T4. Assumes:
+- Private repo at `github.com/radudeaconu/fer`.
+- A fine-grained PAT named `GH_TOKEN` in Colab Secrets (sidebar → key icon).
+- `fer2013.csv` (or `.zip`) on Drive at `/MyDrive/fer-data/`.
 
-## 0 · Mount Drive + clone repo (every fresh runtime)
+## How persistence works
+
+Each Colab notebook gets a fresh ephemeral `/content/`. The repo is cloned per session, but **data + run artifacts live on Drive** at `/content/drive/MyDrive/fer-workspace/`:
+
+```
+fer-workspace/
+├── data_archives/fer2013_prepared.tar.gz   # populated once by 01_colab_setup
+└── runs/                                    # all best.pth / metrics.json / cms
+```
+
+`scripts/colab_bootstrap.py` hydrates `data/fer2013/` from the archive (fast local SSD — Drive FUSE is too slow to train against) and symlinks `runs/` → Drive so every notebook sees the same checkpoints.
+
+## 0 · Bootstrap (every fresh runtime, every notebook)
+
+This is the same cell at the top of `02_train_dan.ipynb`, `03_train_poster.ipynb`, `04_analysis.ipynb`, `05_train_convnext.ipynb`. If you're starting from a blank notebook, paste:
 
 ```python
-from google.colab import drive
-drive.mount('/content/drive')
+import os
+from pathlib import Path
+from google.colab import drive, userdata
 
-# gh PAT lives in Colab "Secrets" as GH_TOKEN — Settings → Secrets → enable for this notebook
-from google.colab import userdata
-import os, subprocess
-os.environ['GH_TOKEN'] = userdata.get('GH_TOKEN')
-!git clone https://$GH_TOKEN@github.com/radudeaconu/fer.git
+drive.mount('/content/drive')
+if not Path('/content/fer').exists():
+    os.environ['GH_TOKEN'] = userdata.get('GH_TOKEN')
+    !git clone https://$GH_TOKEN@github.com/radudeaconu/fer.git /content/fer
 %cd /content/fer
 !pip install -q -r requirements.txt
+%run scripts/colab_bootstrap.py
 ```
 
-## 1 · Data setup (once per runtime)
+After this cell, `data/fer2013/` is populated locally and `runs/` is the Drive workspace.
 
-```python
-# Run notebooks/01_colab_setup.ipynb cells, OR inline:
-!mkdir -p data
-!cp /content/drive/MyDrive/datasets/fer2013.csv data/   # or fer2013.zip
-!python scripts/prepare_fer2013.py --csv data/fer2013.csv --out data/fer2013/
-```
+## 1 · One-time data prep (run `01_colab_setup.ipynb` once, ever)
 
-Verify: `data/fer2013/{train,val,test}/<class>/*.png` exists; ~28k train, ~3.5k val, ~3.6k PrivateTest.
+Place `fer2013.csv` (or `fer2013.zip`) in `MyDrive/fer-data/`, then open `notebooks/01_colab_setup.ipynb` and Run All. It clones the repo, runs `prepare_fer2013.py`, then **publishes the prepared data as `fer2013_prepared.tar.gz` to the Drive workspace**. After this you never need to re-run prep — every other notebook hydrates from the tarball in ~10 s.
+
+Verify: `ls /content/drive/MyDrive/fer-workspace/data_archives/` shows `fer2013_prepared.tar.gz` (~30–60 MB).
 
 ## 2 · Train DAN (≈50 min)
 
@@ -88,17 +103,12 @@ If Colab disconnects, resume:
 !python -m src.eval --config configs/ablations/dan_no_imagenet.yaml --ckpt runs/dan_no_imagenet/best.pth
 ```
 
-## 8 · Persist artifacts back to Drive (do this often)
+## 8 · Drive persistence — automatic
+
+`runs/` is a symlink to `/content/drive/MyDrive/fer-workspace/runs/`. Every checkpoint, `metrics.json`, and `confusion_matrix.png` is already on Drive — no manual copy step needed. Run this once per session to verify:
 
 ```python
-import shutil, os
-os.makedirs('/content/drive/MyDrive/fer_runs', exist_ok=True)
-for exp in ['dan_fer2013', 'convnext_fer2013',
-            'dan_no_sampler', 'dan_no_augment', 'dan_no_imagenet',
-            'ensemble_dan_convnext', 'ensemble_dan_convnext_tta']:
-    src = f'runs/{exp}'
-    if os.path.isdir(src):
-        shutil.copytree(src, f'/content/drive/MyDrive/fer_runs/{exp}', dirs_exist_ok=True)
+!readlink runs && ls /content/drive/MyDrive/fer-workspace/runs
 ```
 
 ## 9 · Run analysis notebook
@@ -137,11 +147,13 @@ python -m app.gradio_app
 
 ## Common pitfalls
 
-- **`ModuleNotFoundError: src`** — you're not in `/content/fer`. `cd` first.
+- **`ModuleNotFoundError: src`** — you're not in `/content/fer`. Re-run §0.
 - **OOM on ConvNeXt** — drop batch to 32 in the config.
 - **TTA gives identical numbers to no-TTA** — the TenCrop transform isn't being applied; check that `--tta` is actually present in the command.
-- **Disconnect mid-train** — re-mount Drive; the resume flag picks up from `last.pth`.
-- **`gh: command not found` on Colab** — you don't need gh on Colab; use `git clone https://$GH_TOKEN@github.com/...` as in §0.
+- **Disconnect mid-train** — re-run §0 in the new runtime; resume with `--resume runs/<exp>/last.pth`.
+- **`gh: command not found` on Colab** — you don't need gh on Colab; the bootstrap clones via `GH_TOKEN`.
+- **`[bootstrap] WARNING: no archive at .../fer2013_prepared.tar.gz`** — you haven't run `01_colab_setup.ipynb` yet. Open it and Run All; subsequent notebooks will hydrate automatically.
+- **`runs/` is empty in `04_analysis.ipynb` even though I trained earlier** — confirm `readlink runs` points to `/content/drive/MyDrive/fer-workspace/runs/`. If not, the bootstrap was skipped — re-run §0.
 
 ## Time budget reality check
 
