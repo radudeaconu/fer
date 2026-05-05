@@ -13,7 +13,12 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
+
+# Make `src` importable when invoked as `python scripts/run_ensemble.py` —
+# Python only adds the script's own dir to sys.path, not the repo root.
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 import numpy as np
 import torch
