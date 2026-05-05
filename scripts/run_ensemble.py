@@ -40,7 +40,8 @@ def main() -> None:
     parser.add_argument("--ckpts", nargs="+", required=True, type=parse_ckpt_spec,
                         help="Space-separated model:ckpt entries")
     parser.add_argument("--dataset", choices=["fer2013", "rafdb"], default="fer2013")
-    parser.add_argument("--root", type=Path, required=True)
+    parser.add_argument("--root", type=Path, default=None,
+                        help="Dataset root; defaults to data/<dataset>")
     parser.add_argument("--image-size", type=int, default=224)
     parser.add_argument("--batch-size", type=int, default=64)
     parser.add_argument("--num-workers", type=int, default=2)
@@ -49,6 +50,8 @@ def main() -> None:
                         help="Optional per-model averaging weights")
     parser.add_argument("--out", type=Path, required=True)
     args = parser.parse_args()
+    if args.root is None:
+        args.root = Path("data") / args.dataset
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
