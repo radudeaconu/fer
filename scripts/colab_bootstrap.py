@@ -40,7 +40,25 @@ def main() -> None:
 
     _hydrate_data()
     _link_runs()
+    _clone_third_party()
     print(f"[bootstrap] workspace ready at {WS}")
+
+
+def _clone_third_party() -> None:
+    """Clone the upstream DAN repo. build_dan() imports networks.dan from it,
+    so any notebook that loads a DAN checkpoint needs it on disk. Cheap
+    (~1 MB) and the existing third_party/ entry in .gitignore keeps it out
+    of git."""
+    third = REPO / "third_party"
+    third.mkdir(exist_ok=True)
+    target = third / "DAN"
+    if target.exists():
+        print(f"[bootstrap] third_party/DAN already present")
+        return
+    print(f"[bootstrap] cloning yaoing/DAN into {target} ...")
+    subprocess.check_call(
+        ["git", "clone", "--depth", "1", "https://github.com/yaoing/DAN.git", str(target)]
+    )
 
 
 def _hydrate_data() -> None:
